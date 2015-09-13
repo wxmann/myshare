@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.jimtang.myshare.util.MonetaryInputHandler;
 
+import java.math.BigDecimal;
+
 public class FrontPageActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -27,13 +29,13 @@ public class FrontPageActivity extends AppCompatActivity implements View.OnClick
 
             // handle cumulative amounts
             TextView subtotalText = (TextView)findViewById(R.id.subtotal_input);
-            Double subtotal = MonetaryInputHandler.forRequiredAmount(this).handleInput(subtotalText.getText());
+            BigDecimal subtotal = MonetaryInputHandler.forRequiredAmount(this).handleInput(subtotalText.getText());
 
             TextView taxText = (TextView)findViewById(R.id.tax_input);
-            Double tax = MonetaryInputHandler.forOptionalAmount(this).handleInput(taxText.getText());
+            BigDecimal tax = MonetaryInputHandler.forOptionalAmount(this).handleInput(taxText.getText());
 
             TextView tipText = (TextView)findViewById(R.id.tip_input);
-            Double tipPercentage = MonetaryInputHandler.forOptionalAmount(this).handleInput(tipText.getText());
+            BigDecimal tipPercentage = MonetaryInputHandler.forOptionalAmount(this).handleInput(tipText.getText());
 
             app.setTotals(subtotal, tax, tipPercentage);
 
@@ -42,7 +44,7 @@ public class FrontPageActivity extends AppCompatActivity implements View.OnClick
             String name = nameText.getText().toString();
 
             TextView amtText = (TextView)findViewById(R.id.amt_input);
-            Double indivAmt = MonetaryInputHandler.forRequiredAmount(this).handleInput(amtText.getText());
+            BigDecimal indivAmt = MonetaryInputHandler.forRequiredAmount(this).handleInput(amtText.getText());
 
             app.addPerson(name, indivAmt);
 

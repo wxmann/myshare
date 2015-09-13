@@ -3,16 +3,19 @@ package com.jimtang.myshare.util;
 import android.app.AlertDialog;
 import android.content.Context;
 
+import java.math.BigDecimal;
+import static java.math.BigDecimal.ZERO;
+
 /**
  * Created by tangz on 9/12/2015.
  */
-public abstract class MonetaryInputHandler implements InputHandler<Double> {
+public abstract class MonetaryInputHandler implements InputHandler<BigDecimal> {
 
     public static MonetaryInputHandler forOptionalAmount(final Context appContext) {
         return new MonetaryInputHandler() {
             @Override
-            public Double handleNull(CharSequence input) {
-                return 0.0;
+            public BigDecimal handleNull(CharSequence input) {
+                return ZERO;
             }
         };
     }
@@ -20,33 +23,33 @@ public abstract class MonetaryInputHandler implements InputHandler<Double> {
     public static MonetaryInputHandler forRequiredAmount(final Context appContext) {
         return new MonetaryInputHandler() {
             @Override
-            public Double handleNull(CharSequence input) {
+            public BigDecimal handleNull(CharSequence input) {
                 new AlertDialog.Builder(appContext)
                         .setTitle("A required field is missing. Check your inputs.")
                         .setCancelable(false)
                         .create();
-                return 0.0;
+                return ZERO;
             }
         };
     }
 
     @Override
-    public Double handleInput(CharSequence input) {
+    public BigDecimal handleInput(CharSequence input) {
         if (input == null) {
             return handleNull(input);
         }
         String inputStr = input.toString();
         try {
-            return Double.parseDouble(inputStr);
+            return new BigDecimal(Double.parseDouble(inputStr));
         } catch (NumberFormatException e) {
             return handleInvalidFormat(input);
         }
     }
 
-    public Double handleInvalidFormat(CharSequence input) {
+    public BigDecimal handleInvalidFormat(CharSequence input) {
         // TODO: handle number format exception
-        return 0.0;
+        return ZERO;
     }
 
-    public abstract Double handleNull(CharSequence input);
+    public abstract BigDecimal handleNull(CharSequence input);
 }

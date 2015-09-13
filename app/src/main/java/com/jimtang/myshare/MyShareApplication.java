@@ -5,6 +5,7 @@ import android.app.Application;
 import com.jimtang.myshare.calc.ShareCalculator;
 import com.jimtang.myshare.calc.ShareResults;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -60,39 +61,39 @@ public class MyShareApplication extends Application {
         }
     }
 
-    public Double subtotalCombined() {
+    public BigDecimal subtotalCombined() {
         return shareResultsForCombined().getSubtotal();
     }
 
-    public Double taxCombined() {
+    public BigDecimal taxCombined() {
         return shareResultsForCombined().getTax();
     }
 
-    public Double tipCombined() {
+    public BigDecimal tipCombined() {
         return shareResultsForCombined().getTip();
     }
 
-    public Double totalCombined() {
+    public BigDecimal totalCombined() {
         return shareResultsForCombined().getTotal();
     }
 
-    public Double subtotalFor(String name) {
+    public BigDecimal subtotalFor(String name) {
         return shareResultsFor(name).getSubtotal();
     }
 
-    public Double taxFor(String name) {
+    public BigDecimal taxFor(String name) {
         return shareResultsFor(name).getTax();
     }
 
-    public Double tipFor(String name) {
+    public BigDecimal tipFor(String name) {
         return shareResultsFor(name).getTip();
     }
 
-    public Double totalFor(String name) {
+    public BigDecimal totalFor(String name) {
         return shareResultsFor(name).getTotal();
     }
 
-    public void addPerson(String name, Double cost) {
+    public void addPerson(String name, BigDecimal cost) {
         calculator.addPerson(name, cost);
         resetCache();
     }
@@ -103,7 +104,7 @@ public class MyShareApplication extends Application {
     }
 
     // This method will need updating if we can add multiple amounts
-    public void updateAmount(String name, Double amt) {
+    public void updateAmount(String name, BigDecimal amt) {
         calculator.updateAmount(name, amt);
         resetCache();
     }
@@ -112,7 +113,7 @@ public class MyShareApplication extends Application {
         return calculator.getPeople();
     }
 
-    public void setTotals(Double subtotal, Double tax, Double tipPercentage) {
+    public void setTotals(BigDecimal subtotal, BigDecimal tax, BigDecimal tipPercentage) {
         calculator.setSubtotal(subtotal);
         calculator.setTax(tax);
         calculator.setTipPercentage(tipPercentage);
