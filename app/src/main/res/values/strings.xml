@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">My Share</string>
+    <string name="app_label">My Share</string>
+    <!--<string name="title_activity_main">MainActivity</string>-->
+
+    <!--<string name="hello_world">Hello world!</string>-->
+    <string name="action_settings">Settings</string>
+
+    <!-- main menu -->
+    <string name="meal_label">Your Meal</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="tax">Tax ($)</string>
+    <string name="tip">Tip (%)</string>
+
+    <!-- button -->
+    <string name="calculate">Calculate</string>
+
+    <!-- person details -->
+    <string name="person_name">Name</string>
+    <string name="person_amount">Amount before tax/tip</string>
+</resources>
