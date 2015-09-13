@@ -2,6 +2,7 @@ package com.jimtang.myshare;
 
 import android.app.Application;
 
+import com.jimtang.myshare.calc.PurchaseData;
 import com.jimtang.myshare.calc.ShareCalculator;
 import com.jimtang.myshare.calc.ShareResults;
 
@@ -15,6 +16,7 @@ import java.util.Set;
  */
 public class MyShareApplication extends Application {
 
+    private PurchaseData purchaseData;
     private ShareCalculator calculator;
     private Map<String, ShareResults> cachedShares;
     private ShareResults cachedCombined;
@@ -26,12 +28,13 @@ public class MyShareApplication extends Application {
     }
 
     private void resetAll() {
+        purchaseData = new PurchaseData();
         resetCalculator();
         resetCache();
     }
 
     private void resetCalculator() {
-        calculator = new ShareCalculator();
+        calculator = new ShareCalculator(purchaseData);
     }
 
     private void resetCache() {
@@ -94,22 +97,22 @@ public class MyShareApplication extends Application {
     }
 
     public void addIndividualCost(String name, String purchase, BigDecimal cost) {
-        calculator.addIndividualPurchase(name, purchase, cost);
+        purchaseData.addIndividualPurchase(name, purchase, cost);
         resetCache();
     }
 
-    public void removePurchase(String name) {
-        calculator.removePurchase(name);
+    public void removePurchase(String purchase) {
+        purchaseData.removePurchase(purchase);
         resetCache();
     }
 
     public void updateCost(String purchase, BigDecimal amt) {
-        calculator.updateAmount(purchase, amt);
+        purchaseData.updateAmount(purchase, amt);
         resetCache();
     }
 
     public Set<String> participants() {
-        return calculator.getParticipants();
+        return purchaseData.getParticipants();
     }
 
     public void setTotals(BigDecimal subtotal, BigDecimal tax, BigDecimal tipPercentage) {
