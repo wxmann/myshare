@@ -1,9 +1,11 @@
 package com.jimtang.myshare.calc;
 
-//import java.math.BigDecimal;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import static java.math.BigDecimal.ZERO;
 
 /**
  * TODO: shared things.
@@ -11,33 +13,33 @@ import java.util.Set;
  */
 public class ShareCalculator {
 
-    private Map<String, Double> amounts;
+    private Map<String, BigDecimal> amounts;
 
-    private Double subtotal;
-    private Double tax;
-    private Double tip;
+    private BigDecimal subtotal;
+    private BigDecimal tax;
+    private BigDecimal tip;
 
     public ShareCalculator() {
         this.amounts = new HashMap<>();
-        this.subtotal = 0.0;
-        this.tax = 0.0;
-        this.tip = 0.0;
+        this.subtotal = ZERO;
+        this.tax = ZERO;
+        this.tip = ZERO;
     }
 
-    public void setSubtotal(Double subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
 
-    public void setTax(Double tax) {
+    public void setTax(BigDecimal tax) {
         this.tax = tax;
     }
 
-    public void setTip(Double tip) {
+    public void setTip(BigDecimal tip) {
         this.tip = tip;
     }
 
-    public void setTipPercentage(Double tipPercentage) {
-        setTip(calculateTipFromPercentage(this.subtotal + this.tax, tipPercentage));
+    public void setTipPercentage(BigDecimal tipPercentage) {
+        setTip(calculateTipFromPercentage(subtotal.add(tax), tipPercentage));
     }
 
     public ShareResults shareForAll() {
@@ -50,7 +52,7 @@ public class ShareCalculator {
         }
     }
 
-    public void addPerson(String name, Double amount) {
+    public void addPerson(String name, BigDecimal amount) {
         // TODO: use multimap
         if (amounts.containsKey(name)) {
             throw new RuntimeException("Duplicate person: " + name);
@@ -63,7 +65,7 @@ public class ShareCalculator {
         amounts.remove(name);
     }
 
-    public void updateAmount(String name, Double newAmount) {
+    public void updateAmount(String name, BigDecimal newAmount) {
         checkPersonExists(name);
         amounts.put(name, newAmount);
     }
@@ -72,26 +74,34 @@ public class ShareCalculator {
         return amounts.keySet();
     }
 
-    static double calculateTipFromPercentage(double totalWithTax, double percentage) {
-        return totalWithTax * percentage / 100;
+    static BigDecimal percentageToDecimal(BigDecimal percentage) {
+        return percentage.divide(new BigDecimal(100));
     }
 
-    ShareResults calculateIndividualShare(String name, double amt) {
-        if (amt == 0 || subtotal == 0) {
-            return new ShareResults(name, 0.0, 0.0, 0.0);
-        }
-        double amtPercentage = amt / subtotal;
+    static BigDecimal calculateTipFromPercentage(BigDecimal totalWithTax, BigDecimal percentage) {
+        return totalWithTax.multiply(percentageToDecimal(percentage));
+    }
 
-        double mySubtotal = subtotal * amtPercentage;
-        double myTax = tax * amtPercentage;
-        double myTip = tip * amtPercentage;
+    static boolean isZero(BigDecimal num) {
+        return num == null || num == ZERO || num.equals(ZERO);
+    }
+
+    ShareResults calculateIndividualShare(String name, BigDecimal amt) {
+        if (isZero(amt) || isZero(subtotal)) {
+            return new ShareResults(name, ZERO, ZERO, ZERO);
+        }
+        BigDecimal amtPercentage = amt.divide(subtotal);
+
+        BigDecimal mySubtotal = subtotal.multiply(amtPercentage);
+        BigDecimal myTax = tax.multiply(amtPercentage);
+        BigDecimal myTip = tip.multiply(amtPercentage);
 
         return new ShareResults(name, mySubtotal, myTax, myTip);
     }
 
     public ShareResults shareFor(String name) {
         checkPersonExists(name);
-        Double indivAmt = amounts.get(name);
+        BigDecimal indivAmt = amounts.get(name);
         return calculateIndividualShare(name, indivAmt);
     }
 }

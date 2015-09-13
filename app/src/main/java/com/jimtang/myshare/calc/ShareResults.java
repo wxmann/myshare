@@ -1,16 +1,18 @@
 package com.jimtang.myshare.calc;
 
+import java.math.BigDecimal;
+
 /**
  * Created by tangz on 9/9/2015.
  */
 public class ShareResults {
 
     private String name;
-    private Double subtotal;
-    private Double tax;
-    private Double tip;
+    private BigDecimal subtotal;
+    private BigDecimal tax;
+    private BigDecimal tip;
 
-    public ShareResults(String name, Double subtotal, Double tax, Double tip) {
+    public ShareResults(String name, BigDecimal subtotal, BigDecimal tax, BigDecimal tip) {
         this.name = name;
         this.subtotal = subtotal;
         this.tax = tax;
@@ -21,20 +23,20 @@ public class ShareResults {
         return name;
     }
 
-    public Double getSubtotal() {
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
 
-    public Double getTax() {
+    public BigDecimal getTax() {
         return tax;
     }
 
-    public Double getTip() {
+    public BigDecimal getTip() {
         return tip;
     }
 
-    public Double getTotal() {
-        return subtotal + tax + tip;
+    public BigDecimal getTotal() {
+        return subtotal.add(tax).add(tip);
     }
 
 }
