@@ -45,7 +45,7 @@ public class MyShareApplication extends Application {
         if (cachedCombined != null) {
             return cachedCombined;
         } else {
-            ShareResults all = calculator.shareForAll();
+            ShareResults all = calculator.cumulativeAmounts();
             cachedCombined = all;
             return all;
         }
@@ -93,24 +93,23 @@ public class MyShareApplication extends Application {
         return shareResultsFor(name).getTotal();
     }
 
-    public void addPerson(String name, BigDecimal cost) {
-        calculator.addPerson(name, cost);
+    public void addIndividualCost(String name, String purchase, BigDecimal cost) {
+        calculator.addIndividualPurchase(name, purchase, cost);
         resetCache();
     }
 
-    public void removePerson(String name) {
-        calculator.removePerson(name);
+    public void removePurchase(String name) {
+        calculator.removePurchase(name);
         resetCache();
     }
 
-    // This method will need updating if we can add multiple amounts
-    public void updateAmount(String name, BigDecimal amt) {
-        calculator.updateAmount(name, amt);
+    public void updateCost(String purchase, BigDecimal amt) {
+        calculator.updateAmount(purchase, amt);
         resetCache();
     }
 
     public Set<String> participants() {
-        return calculator.getPeople();
+        return calculator.getParticipants();
     }
 
     public void setTotals(BigDecimal subtotal, BigDecimal tax, BigDecimal tipPercentage) {

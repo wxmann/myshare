@@ -39,14 +39,17 @@ public class FrontPageActivity extends AppCompatActivity implements View.OnClick
 
             app.setTotals(subtotal, tax, tipPercentage);
 
-            // handle individual mounts
+            // handle individual amounts
             TextView nameText = (TextView)findViewById(R.id.name_input);
             String name = nameText.getText().toString();
+
+            TextView purchaseNameText = (TextView)findViewById(R.id.purchase_input);
+            String purchaseName = purchaseNameText.getText().toString();
 
             TextView amtText = (TextView)findViewById(R.id.amt_input);
             BigDecimal indivAmt = MonetaryInputHandler.forRequiredAmount(this).handleInput(amtText.getText());
 
-            app.addPerson(name, indivAmt);
+            app.addIndividualCost(name, purchaseName, indivAmt);
 
             // go!
             Intent goToDisplay = new Intent(this, DisplayShareActivity.class);
