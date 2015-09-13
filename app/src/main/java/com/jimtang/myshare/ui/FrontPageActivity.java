@@ -1,4 +1,4 @@
-package com.jimtang.myshare;
+package com.jimtang.myshare.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jimtang.myshare.MyShareApplication;
+import com.jimtang.myshare.R;
+import com.jimtang.myshare.ui.DisplayShareActivity;
 import com.jimtang.myshare.util.MonetaryInputHandler;
 
 import java.math.BigDecimal;

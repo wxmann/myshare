@@ -1,4 +1,4 @@
-package com.jimtang.myshare;
+package com.jimtang.myshare.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,8 @@ import android.widget.ExpandableListView;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Multimaps;
+import com.jimtang.myshare.MyShareApplication;
+import com.jimtang.myshare.R;
 
 import java.util.List;
 

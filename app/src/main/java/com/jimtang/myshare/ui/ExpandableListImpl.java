@@ -1,4 +1,4 @@
-package com.jimtang.myshare;
+package com.jimtang.myshare.ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
+import com.jimtang.myshare.R;
 
 import java.util.Collection;
 import java.util.List;
