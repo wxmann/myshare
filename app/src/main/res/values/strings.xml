@@ -14,8 +14,14 @@
 
     <!-- button -->
     <string name="calculate">Calculate</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
 
     <!-- person details -->
     <string name="person_name">Person Name</string>
     <string name="person_amount">Amount before tax/tip</string>
+
+    <!-- for add people activity -->
+    <string name="add_people_dialog_title">Add people</string>
+    <string name="add_people_button_name">Start by adding people you want to split an expense with!</string>
 </resources>
