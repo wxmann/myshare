@@ -1,6 +1,5 @@
 package com.jimtang.myshare.ui;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,7 @@ import com.jimtang.myshare.R;
 /**
  * Created by tangz on 10/16/2015.
  */
-public class DisplayPeopleActivity extends ListActivity {
+public class AddPeopleDisplayActivity extends ListActivity {
 
     ArrayAdapter<String> nameList;
 

@@ -2,8 +2,6 @@ package com.jimtang.myshare.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,9 +16,7 @@ import com.jimtang.myshare.R;
 /**
  * Created by tangz on 10/13/2015.
  */
-public class AddPeopleActivity extends Activity {
-
-    String inputName = "";
+public class AddPeopleEntryActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +48,7 @@ public class AddPeopleActivity extends Activity {
                         public void onClick(DialogInterface dialog, int which) {
                             EditText userInput = (EditText) dialogView.findViewById(R.id.add_person_name);
                             String inputName = userInput.getText().toString();
-                            Intent intent = new Intent(context, DisplayPeopleActivity.class);
+                            Intent intent = new Intent(context, AddPeopleDisplayActivity.class);
                             intent.putExtra(IntentConstants.USER_INPUT_NAME, inputName);
                             context.startActivity(intent);
                         }

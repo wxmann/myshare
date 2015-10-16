@@ -9,14 +9,14 @@
         android:theme="@style/AppTheme"
         android:name=".MyShareApplication">
         <activity
-            android:name=".ui.AddPeopleActivity"
+            android:name=".ui.AddPeopleEntryActivity"
             android:label="@string/app_label" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.DisplayPeopleActivity"/>
+        <activity android:name=".ui.AddPeopleDisplayActivity"/>
 
         <!--<activity android:name=".ui.DisplayShareActivity"-->
             <!--android:parentActivityName=".ui.FrontPageActivity">-->
