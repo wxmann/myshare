@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jimtang.myshare.R;
-import com.jimtang.myshare.ui.listener.DialogListener;
 
 /**
  * Created by tangz on 10/13/2015.
