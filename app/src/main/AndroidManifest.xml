@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.AddPeopleDisplayActivity"/>
+        <activity android:name=".ui.AddExpenseActivity"/>
 
         <!--<activity android:name=".ui.DisplayShareActivity"-->
             <!--android:parentActivityName=".ui.FrontPageActivity">-->

@@ -3,11 +3,15 @@ package com.jimtang.myshare.ui;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tangz on 10/16/2015.
@@ -38,6 +42,23 @@ public class AddPeopleDisplayActivity extends ListActivity {
             }
         });
 
-        // TODO: button to get to next activity
+        // button to get to next activity
+        Button nextButton = (Button) findViewById(R.id.add_people_next_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddPeopleDisplayActivity.this, AddExpenseActivity.class);
+                intent.putStringArrayListExtra(IntentConstants.ALL_NAMES, arrayAdapterToList());
+                startActivity(intent);
+            }
+        });
+    }
+
+    private ArrayList<String> arrayAdapterToList() {
+        ArrayList<String> names = Lists.newArrayList();
+        for (int i = 0; i < nameList.getCount(); i++) {
+            names.add(nameList.getItem(i));
+        }
+        return names;
     }
 }

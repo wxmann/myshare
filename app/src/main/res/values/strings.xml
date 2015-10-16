@@ -9,6 +9,8 @@
     <!-- button -->
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
+    <string name="add_expense">Add New Expense</string>
+    <string name="calculate_shares">Calculate All Shares</string>
 
     <!-- for add people activity -->
     <string name="add_people_dialog_title">Add people</string>
