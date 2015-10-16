@@ -4,7 +4,9 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
+import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 
 /**
@@ -12,22 +14,30 @@ import com.jimtang.myshare.R;
  */
 public class AddPeopleDisplayActivity extends ListActivity {
 
-    ArrayAdapter<String> nameList;
+    private ArrayAdapter<String> nameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_people_display);
 
+        // receive intent for the first name from the entry screen
         Intent intent = getIntent();
         if (intent != null) {
             String inputName = intent.getStringExtra(IntentConstants.USER_INPUT_NAME);
-            nameList = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{inputName});
+            nameList = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Lists.newArrayList(inputName));
             setListAdapter(nameList);
         }
-    }
 
-    public void addName(String name) {
-        nameList.add(name);
+        // button to add additional names
+        Button addMoreNamesButton = (Button) findViewById(R.id.add_more_people_button);
+        addMoreNamesButton.setOnClickListener(new NameButtonListener(this) {
+            @Override
+            protected void doWithInputName(String inputName) {
+                nameList.add(inputName);
+            }
+        });
+
+        // TODO: button to get to next activity
     }
 }

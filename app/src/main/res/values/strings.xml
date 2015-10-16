@@ -6,22 +6,15 @@
     <!--<string name="hello_world">Hello world!</string>-->
     <string name="action_settings">Settings</string>
 
-    <!-- main menu -->
-    <string name="meal_label">Your Meal</string>
-    <string name="subtotal">Subtotal</string>
-    <string name="tax">Tax ($)</string>
-    <string name="tip">Tip (%)</string>
-
     <!-- button -->
-    <string name="calculate">Calculate</string>
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
-
-    <!-- person details -->
-    <string name="person_name">Person Name</string>
-    <string name="person_amount">Amount before tax/tip</string>
 
     <!-- for add people activity -->
     <string name="add_people_dialog_title">Add people</string>
     <string name="add_people_button_name">Start by adding people you want to split an expense with!</string>
+    <string name="add_more_people_button_name">Add more people</string>
+
+    <!-- next step -->
+    <string name="next_step">Next</string>
 </resources>
