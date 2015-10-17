@@ -11,6 +11,13 @@
         android:layout_centerHorizontal="true"
         android:hint="@string/people_who_purchased" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shared_checkbox_label"
+        android:id="@+id/sharedCheckBox"
+        android:checked="false" />
+
     <EditText
         android:id="@+id/expense_name_field"
         android:layout_width="match_parent"

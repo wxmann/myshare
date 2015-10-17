@@ -45,10 +45,10 @@ public class ExpenseCollectionAdapter extends ArrayAdapter<Expense> {
         itemDisplay.setText("Item: " + expense.getExpenseName());
 
         TextView participantsDisplay = (TextView) newView.findViewById(R.id.expense_participant_display);
-        participantsDisplay.setText("Paying: " + Joiner.on(',').join(expense.getPeople()));
+        participantsDisplay.setText("Paying: " + Joiner.on(", ").join(expense.getPeople()));
 
         TextView amtDisplay = (TextView) newView.findViewById(R.id.expense_amt_display);
-        amtDisplay.setText("Subtotal amount: " + expense.getAmount().toPlainString());
+        amtDisplay.setText("Subtotal amount: $" + expense.getAmount().toPlainString());
 
         return newView;
     }

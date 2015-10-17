@@ -23,6 +23,7 @@
     <!-- for add expense activity -->
     <string name="add_expense_dialog_title">Add Expense</string>
     <string name="people_who_purchased">Names of people involved in expense</string>
-    <string name="expense_name">Expense</string>
+    <string name="expense_name">Expense Name</string>
     <string name="amount_before_tax">Amount (before tax)</string>
+    <string name="shared_checkbox_label">or split between everyone (overrides individual names)</string>
 </resources>

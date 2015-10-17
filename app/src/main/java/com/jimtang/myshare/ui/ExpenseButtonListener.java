@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 
@@ -54,15 +55,22 @@ public abstract class ExpenseButtonListener implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int which) {
 
                         String commaSepNames = enterNamesField.getText().toString();
-                        String[] participantNames = commaSepNames.split(",");
+                        String[] participantNames = commaSepNames.split("\\s*,\\s*");
 
-                        EditText inputExpenseName = (EditText) dialogView.findViewById(R.id.expense_name_field);
-                        String inputExpenseNameStr = inputExpenseName.getText().toString();
+                        CheckBox isSharedCheckBox = (CheckBox) dialogView.findViewById(R.id.sharedCheckBox);
+                        boolean isShared = isSharedCheckBox.isChecked();
 
-                        EditText inputExpenseAmt = (EditText) dialogView.findViewById(R.id.expense_amount_field);
-                        Double inputExpenseAmtNum = Double.parseDouble(inputExpenseAmt.getText().toString());
+                        EditText inputExpenseNameField = (EditText) dialogView.findViewById(R.id.expense_name_field);
+                        String inputExpenseName = inputExpenseNameField.getText().toString();
 
-                        doWithExpenseObject(new Expense(participantNames, inputExpenseNameStr, new BigDecimal(inputExpenseAmtNum)));
+                        EditText inputExpenseAmtField = (EditText) dialogView.findViewById(R.id.expense_amount_field);
+                        Double inputExpenseAmtDbl = Double.parseDouble(inputExpenseAmtField.getText().toString());
+                        BigDecimal inputExpenseAmt = new BigDecimal(inputExpenseAmtDbl);
+
+                        Expense expense = isShared ? Expense.getSharedByAllInstance(inputExpenseName, inputExpenseAmt)
+                                : Expense.getInstance(participantNames, inputExpenseName, inputExpenseAmt);
+
+                        doWithExpenseObject(expense);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

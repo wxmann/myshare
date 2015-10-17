@@ -11,7 +11,20 @@ public class Expense {
     private BigDecimal amount;
     private String expenseName;
 
-    public Expense(String[] people, String expenseName, BigDecimal amount) {
+    public static Expense getInstance(String[] people, String expenseName, BigDecimal amount) {
+        return new Expense(people, expenseName, amount);
+    }
+
+    public static Expense getSharedByAllInstance(String expenseName, BigDecimal amount) {
+        return new Expense(new String[]{"EVERYONE"}, expenseName, amount) {
+            @Override
+            public boolean sharedByAll() {
+                return true;
+            }
+        };
+    }
+
+    Expense(String[] people, String expenseName, BigDecimal amount) {
         this.people = people;
         this.amount = amount;
         this.expenseName = expenseName;
