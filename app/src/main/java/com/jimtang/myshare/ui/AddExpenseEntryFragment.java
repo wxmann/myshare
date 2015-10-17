@@ -16,6 +16,6 @@ public class AddExpenseEntryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.add_expenses_entry, container, false);
+        return inflater.inflate(R.layout.add_expenses_entry_frag, container, false);
     }
 }

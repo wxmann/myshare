@@ -19,4 +19,10 @@
 
     <!-- next step -->
     <string name="next_step">Next</string>
+
+    <!-- for add expense activity -->
+    <string name="add_expense_dialog_title">Add Expense</string>
+    <string name="people_who_purchased">Names of people involved in expense</string>
+    <string name="expense_name">Expense</string>
+    <string name="amount_before_tax">Amount (before tax)</string>
 </resources>

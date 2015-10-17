@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/add_expense_activity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -11,20 +13,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_expense_button"
-            android:text="@string/add_expense"/>
+            android:text="@string/add_expense"
+            android:layout_gravity="left"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/calculate_button"
-            android:text="@string/calculate_shares"/>
+            android:text="@string/calculate_shares"
+            android:layout_gravity="right"/>
     </LinearLayout>
 
-    <fragment
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:name="com.jimtang.myshare.ui.AddExpenseEntryFragment"
-        android:id="@+id/add_expense_entry_fragment"
-        android:layout_gravity="center" />
+        android:id="@+id/expense_frag_container">
 
-</FrameLayout>
+        <!--<TextView-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="ABC"/>-->
+    </LinearLayout>
+
+    <!--<fragment-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:name="com.jimtang.myshare.ui.AddExpenseEntryFragment"-->
+        <!--android:id="@+id/add_expense_entry_fragment"-->
+        <!--android:layout_gravity="center" />-->
+
+</LinearLayout>

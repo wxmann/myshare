@@ -1,11 +1,15 @@
 package com.jimtang.myshare.ui;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
+import com.jimtang.myshare.model.Expense;
 
 import java.util.List;
 
@@ -14,6 +18,10 @@ import java.util.List;
  */
 public class AddExpenseActivity extends Activity {
 
+    static final String ENTRY_FRAGMENT = "entryFragment";
+    static final String DISPLAY_FRAGMENT = "displayFragment";
+
+    FragmentManager fragmentManager;
     List<String> nameOptions = Lists.newArrayList();
 
     @Override
@@ -21,9 +29,36 @@ public class AddExpenseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_expenses);
 
+        fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.expense_frag_container, new AddExpenseEntryFragment(), ENTRY_FRAGMENT)
+                .commit();
+
         Intent intent = getIntent();
         if (intent != null) {
             nameOptions = intent.getStringArrayListExtra(IntentConstants.ALL_NAMES);
         }
+
+        Button addExpenseButton = (Button) findViewById(R.id.add_expense_button);
+        addExpenseButton.setOnClickListener(new ExpenseButtonListener(this, nameOptions) {
+            @Override
+            protected void doWithExpenseObject(Expense expense) {
+
+                Fragment entryFrag = fragmentManager.findFragmentByTag(ENTRY_FRAGMENT);
+                AddExpenseDisplayFragment displayFrag;
+
+                if (entryFrag != null) {
+                    displayFrag = new AddExpenseDisplayFragment();
+
+                    // do NOT add to back-stack as we do not want to see the entry screen again, or have it be saved.
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.expense_frag_container, displayFrag, DISPLAY_FRAGMENT)
+                            .commit();
+                } else {
+                    displayFrag = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(DISPLAY_FRAGMENT);
+                }
+                displayFrag.addExpense(expense);
+            }
+        });
     }
 }
