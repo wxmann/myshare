@@ -11,7 +11,9 @@ import android.widget.ListView;
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.model.Expense;
+import com.jimtang.myshare.util.ArrayAdapterListMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +21,7 @@ import java.util.List;
  */
 public class AddExpenseDisplayFragment extends ListFragment {
 
-    List<Expense> preloadedExpenses = Lists.newArrayList();
+    ArrayList<Expense> preloadedExpenses = Lists.newArrayList();
     ExpenseCollectionAdapter adapter;
 
     @Nullable
@@ -38,6 +40,14 @@ public class AddExpenseDisplayFragment extends ListFragment {
             preloadedExpenses.add(expense);
         } else {
             adapter.add(expense);
+        }
+    }
+
+    public ArrayList<Expense> getAddedExpenses() {
+        if (adapter == null) {
+            return preloadedExpenses;
+        } else {
+            return ArrayAdapterListMapper.toList(adapter);
         }
     }
 }

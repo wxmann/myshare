@@ -5,12 +5,14 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.model.Expense;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +60,21 @@ public class AddExpenseActivity extends Activity {
                     displayFrag = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(DISPLAY_FRAGMENT);
                 }
                 displayFrag.addExpense(expense);
+            }
+        });
+
+        Button calculateButton = (Button) findViewById(R.id.calculate_button);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddExpenseActivity.this, CumulativeTotalsActivity.class);
+
+                // get the expenses from the fragment, and add them to a parcelable array
+                AddExpenseDisplayFragment fragment = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(DISPLAY_FRAGMENT);
+                ArrayList<Expense> expenses = fragment.getAddedExpenses();
+                intent.putParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES, expenses);
+
+                startActivity(intent);
             }
         });
     }

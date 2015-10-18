@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/cumul_totals_intro"
+        android:id="@+id/cumul_text"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/cumul_subtotal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:hint="@string/cumul_subtotal_hint"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/cumul_tax"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:hint="@string/cumul_tax_hint"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/cumul_tip"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:hint="@string/cumul_tip_hint"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cumul_totals_next_button_text"
+        android:id="@+id/cumul_next_button"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

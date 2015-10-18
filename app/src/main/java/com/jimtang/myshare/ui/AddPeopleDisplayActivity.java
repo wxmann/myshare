@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
+import com.jimtang.myshare.util.ArrayAdapterListMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,17 +49,9 @@ public class AddPeopleDisplayActivity extends ListActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddPeopleDisplayActivity.this, AddExpenseActivity.class);
-                intent.putStringArrayListExtra(IntentConstants.ALL_NAMES, arrayAdapterToList());
+                intent.putStringArrayListExtra(IntentConstants.ALL_NAMES, ArrayAdapterListMapper.toList(nameList));
                 startActivity(intent);
             }
         });
-    }
-
-    private ArrayList<String> arrayAdapterToList() {
-        ArrayList<String> names = Lists.newArrayList();
-        for (int i = 0; i < nameList.getCount(); i++) {
-            names.add(nameList.getItem(i));
-        }
-        return names;
     }
 }
