@@ -12,8 +12,8 @@ import android.widget.MultiAutoCompleteTextView;
 
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.model.Expense;
+import com.jimtang.myshare.model.MonetaryAmount;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,8 +64,7 @@ public abstract class ExpenseButtonListener implements View.OnClickListener {
                         String inputExpenseName = inputExpenseNameField.getText().toString();
 
                         EditText inputExpenseAmtField = (EditText) dialogView.findViewById(R.id.expense_amount_field);
-                        Double inputExpenseAmtDbl = Double.parseDouble(inputExpenseAmtField.getText().toString());
-                        BigDecimal inputExpenseAmt = new BigDecimal(inputExpenseAmtDbl);
+                        MonetaryAmount inputExpenseAmt = new MonetaryAmount(inputExpenseAmtField.getText().toString());
 
                         Expense expense = isShared ? Expense.getSharedByAllInstance(inputExpenseName, inputExpenseAmt)
                                 : Expense.getInstance(participantNames, inputExpenseName, inputExpenseAmt);

@@ -1,6 +1,7 @@
 package com.jimtang.myshare.calc;
 
 import com.jimtang.myshare.model.Expense;
+import com.jimtang.myshare.model.MonetaryAmount;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -19,8 +20,8 @@ public class ExpenseSumAggregator {
     private ExpenseSumAggregator() {
     }
 
-    public BigDecimal aggregate(Collection<Expense> expenses) {
-        BigDecimal sum = BigDecimal.ZERO;
+    public MonetaryAmount aggregate(Collection<Expense> expenses) {
+        MonetaryAmount sum = MonetaryAmount.ZERO;
         for (Expense expense : expenses) {
             sum = sum.add(expense.getAmount());
         }

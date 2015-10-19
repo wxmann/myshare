@@ -3,46 +3,40 @@ package com.jimtang.myshare.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 /**
  * Created by tangz on 10/16/2015.
  */
 public class Expense implements Parcelable {
 
     private final String[] people;
-    private final BigDecimal amount;
+    private final MonetaryAmount amount;
     private final String expenseName;
+    private boolean sharedByAll;
 
-    public static Expense getInstance(String[] people, String expenseName, BigDecimal amount) {
-        return new Expense(people, expenseName, amount);
+    public static Expense getInstance(String[] people, String expenseName, MonetaryAmount amount) {
+        return new Expense(people, expenseName, amount, false);
     }
 
-    public static Expense getSharedByAllInstance(String expenseName, BigDecimal amount) {
-        return new Expense(new String[]{"EVERYONE"}, expenseName, amount) {
-            @Override
-            public boolean sharedByAll() {
-                return true;
-            }
-        };
+    public static Expense getSharedByAllInstance(String expenseName, MonetaryAmount amount) {
+        return new Expense(new String[]{"EVERYONE"}, expenseName, amount, true);
     }
 
-    Expense(String[] people, String expenseName, BigDecimal amount) {
+    Expense(String[] people, String expenseName, MonetaryAmount amount, boolean sharedByAll) {
         this.people = people;
         this.amount = amount;
         this.expenseName = expenseName;
+        this.sharedByAll = sharedByAll;
     }
 
-    public boolean sharedByAll() {
-        return false;
+    public boolean isSplitByAll() {
+        return sharedByAll;
     }
 
     public String[] getPeople() {
         return people;
     }
 
-    public BigDecimal getAmount() {
+    public MonetaryAmount getAmount() {
         return amount;
     }
 
@@ -63,14 +57,15 @@ public class Expense implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(people);
         dest.writeString(expenseName);
-        dest.writeSerializable(amount);
+        dest.writeParcelable(amount, 0);
+        dest.writeInt(sharedByAll ? 1 : 0);
     }
 
     protected Expense(Parcel in) {
         people = in.createStringArray();
         expenseName = in.readString();
-        // for now, expect that only one Serializable instance, our amount BigDecimal, will be written to this parcel.
-        amount = (BigDecimal) in.readSerializable();
+        amount = in.readParcelable(null);
+        sharedByAll = in.readInt() == 1;
     }
 
     public static final Creator<Expense> CREATOR = new Creator<Expense>() {
