@@ -64,7 +64,7 @@ public class Expense implements Parcelable {
     protected Expense(Parcel in) {
         people = in.createStringArray();
         expenseName = in.readString();
-        amount = in.readParcelable(null);
+        amount = in.readParcelable(MonetaryAmount.class.getClassLoader());
         sharedByAll = in.readInt() == 1;
     }
 
