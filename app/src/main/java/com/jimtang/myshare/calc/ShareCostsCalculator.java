@@ -9,7 +9,6 @@ import com.jimtang.myshare.model.MonetaryAmount;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,17 +43,14 @@ public class ShareCostsCalculator {
         if (allParticipants == null) {
             allParticipants = Sets.newHashSet();
             for (Expense expense : expenses) {
-                if (!expense.isSplitByAll()) {
-                    String[] people = expense.getPeople();
-                    for (String person : people) {
-                        allParticipants.add(person);
-                    }
+                String[] people = expense.getPeople();
+                for (String person : people) {
+                    allParticipants.add(person);
                 }
-            }
-            if (allParticipants.isEmpty() && expenses.size() > 0) {
-                // this entails that all expenses are split equally by all participants
-                // furthermore, we have non-empty expenses, so we can do this without reservation
-                allParticipants.addAll(Arrays.asList(expenses.get(0).getPeople()));
+                if (expense.isSplitByAll()) {
+                    // we're done; we've already added everyone that we can add.
+                    break;
+                }
             }
         }
         return allParticipants;
@@ -85,7 +81,7 @@ public class ShareCostsCalculator {
         if (filteredForPerson.isEmpty()) {
             // can't imagine this scenario but we should be careful nonetheless.
             throw new CalculationException(
-                    String.format("Can't calculate share for: %s; he wasn't added to any expenses", name));
+                    String.format("Can't calculate share for: %s; (s)he wasn't added to any expenses", name));
         }
 
         MonetaryAmount resultSubtotal = MonetaryAmount.ZERO;
@@ -104,7 +100,7 @@ public class ShareCostsCalculator {
             BigDecimal scalingFactor = singleToTotalRatio.divide(numberOfPeople,
                     MonetaryAmount.DIVISION_SCALE, RoundingMode.CEILING);
 
-            resultSubtotal = resultSubtotal.add(subtotalForExpense);
+            resultSubtotal = resultSubtotal.add(totalSubtotal.multiply(scalingFactor));
             resultTax = resultTax.add(totalTax.multiply(scalingFactor));
             resultTip = resultTip.add(totalTip.multiply(scalingFactor));
         }
