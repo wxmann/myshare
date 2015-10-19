@@ -24,6 +24,9 @@ import java.text.NumberFormat;
  * currency precision. When creating a MonetaryAmount out of the box, we should round to the
  * currency precision.
  *
+ * Supported operations: addition/subtraction by another monetary amount; scaling by a factor;
+ * dividing by another MonetaryAmount to produce a dimensionless ratio.
+ *
  * Created by tangz on 10/18/2015.
  */
 public class MonetaryAmount implements Parcelable {
@@ -33,7 +36,7 @@ public class MonetaryAmount implements Parcelable {
     private static final MathContext DEFAULT_MATH_CONTEXT = new MathContext(DECIMALS, ROUNDING_MODE);
 
     // keep 4x as many digits as we'll need to output.
-    private static final int DIVISION_SCALE = DECIMALS * 4;
+    public static final int DIVISION_SCALE = DECIMALS * 4;
 
     public static final MonetaryAmount ZERO = new MonetaryAmount("0.0");
 
@@ -62,12 +65,15 @@ public class MonetaryAmount implements Parcelable {
         return new MonetaryAmount(this.amount.subtract(other.amount), false);
     }
 
+    // It wouldn't make sense to multiple two monetary amounts (what would be the units?).
+    // In that sense, this method scales this MonetaryAmount by a dimensionless number.
     public MonetaryAmount multiply(BigDecimal scalar) {
         return new MonetaryAmount(this.amount.multiply(scalar), false);
     }
 
-    public MonetaryAmount divide(BigDecimal scalar) {
-        return new MonetaryAmount(this.amount.divide(scalar, DIVISION_SCALE, RoundingMode.CEILING), false);
+    // currency units cancel out in the division operation
+    public BigDecimal divide(MonetaryAmount other) {
+        return this.amount.divide(other.amount, DIVISION_SCALE, RoundingMode.CEILING);
     }
 
     public BigDecimal toBigDecimal() {
@@ -80,6 +86,20 @@ public class MonetaryAmount implements Parcelable {
 
     public String toNumericString() {
         return toBigDecimal().toPlainString();
+    }
+
+    public int hashCode() {
+        return toBigDecimal().hashCode();
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof MonetaryAmount)) {
+            return false;
+        }
+        return this.toBigDecimal().compareTo(((MonetaryAmount)obj).toBigDecimal()) == 0;
     }
 
     ///////////////////////////////////

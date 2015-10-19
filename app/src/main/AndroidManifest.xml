@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:name=".MyShareApplication">
+
         <activity
             android:name=".ui.AddPeopleEntryActivity"
             android:label="@string/app_label" >
@@ -16,19 +17,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.AddPeopleDisplayActivity"/>
-        <activity android:name=".ui.AddExpenseActivity"/>
-        <activity android:name=".ui.CumulativeTotalsActivity"/>
-
-        <!--<activity android:name=".ui.DisplayShareActivity"-->
-            <!--android:parentActivityName=".ui.FrontPageActivity">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.FrontPageActivity"/>-->
-        <!--</activity>-->
-
+        <activity
+            android:name=".ui.AddPeopleDisplayActivity"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.AddExpenseActivity"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.CumulativeTotalsActivity"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.DisplaySharesActivity"
+            android:label="@string/app_name"/>
 
     </application>
-
-
 </manifest>

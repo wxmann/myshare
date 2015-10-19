@@ -66,7 +66,8 @@ public abstract class ExpenseButtonListener implements View.OnClickListener {
                         EditText inputExpenseAmtField = (EditText) dialogView.findViewById(R.id.expense_amount_field);
                         MonetaryAmount inputExpenseAmt = new MonetaryAmount(inputExpenseAmtField.getText().toString());
 
-                        Expense expense = isShared ? Expense.getSharedByAllInstance(inputExpenseName, inputExpenseAmt)
+                        Expense expense = isShared ?
+                                Expense.getSharedByAllInstance(nameOptions.toArray(new String[0]), inputExpenseName, inputExpenseAmt)
                                 : Expense.getInstance(participantNames, inputExpenseName, inputExpenseAmt);
 
                         doWithExpenseObject(expense);
