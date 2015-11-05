@@ -28,19 +28,6 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/expense_frag_container">
-
-        <!--<TextView-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="ABC"/>-->
-    </LinearLayout>
-
-    <!--<fragment-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:name="com.jimtang.myshare.ui.AddExpenseEntryFragment"-->
-        <!--android:id="@+id/add_expense_entry_fragment"-->
-        <!--android:layout_gravity="center" />-->
+        android:id="@+id/expense_frag_container"/>
 
 </LinearLayout>
