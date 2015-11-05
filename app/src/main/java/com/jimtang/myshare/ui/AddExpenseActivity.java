@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class AddExpenseActivity extends Activity {
 
-    static final String ENTRY_FRAGMENT = "entryFragment";
-    static final String DISPLAY_FRAGMENT = "displayFragment";
+    static final String EXPENSE_ENTRY_FRAGMENT = "expenseEntryFragment";
+    static final String EXPENSE_DISPLAY_FRAGMENT = "expenseDisplayFragment";
 
     FragmentManager fragmentManager;
     List<String> nameOptions = Lists.newArrayList();
@@ -33,7 +33,7 @@ public class AddExpenseActivity extends Activity {
 
         fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.expense_frag_container, new AddExpenseEntryFragment(), ENTRY_FRAGMENT)
+                .add(R.id.expense_frag_container, new AddExpenseEntryFragment(), EXPENSE_ENTRY_FRAGMENT)
                 .commit();
 
         Intent intent = getIntent();
@@ -46,7 +46,7 @@ public class AddExpenseActivity extends Activity {
             @Override
             protected void doWithExpenseObject(Expense expense) {
 
-                Fragment entryFrag = fragmentManager.findFragmentByTag(ENTRY_FRAGMENT);
+                Fragment entryFrag = fragmentManager.findFragmentByTag(EXPENSE_ENTRY_FRAGMENT);
                 AddExpenseDisplayFragment displayFrag;
 
                 if (entryFrag != null) {
@@ -54,10 +54,10 @@ public class AddExpenseActivity extends Activity {
 
                     // do NOT add to back-stack as we do not want to see the entry screen again, or have it be saved.
                     fragmentManager.beginTransaction()
-                            .replace(R.id.expense_frag_container, displayFrag, DISPLAY_FRAGMENT)
+                            .replace(R.id.expense_frag_container, displayFrag, EXPENSE_DISPLAY_FRAGMENT)
                             .commit();
                 } else {
-                    displayFrag = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(DISPLAY_FRAGMENT);
+                    displayFrag = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(EXPENSE_DISPLAY_FRAGMENT);
                 }
                 displayFrag.addExpense(expense);
             }
@@ -70,7 +70,7 @@ public class AddExpenseActivity extends Activity {
                 Intent intent = new Intent(AddExpenseActivity.this, CumulativeTotalsActivity.class);
 
                 // get the expenses from the fragment, and add them to a parcelable array
-                AddExpenseDisplayFragment fragment = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(DISPLAY_FRAGMENT);
+                AddExpenseDisplayFragment fragment = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(EXPENSE_DISPLAY_FRAGMENT);
                 ArrayList<Expense> expenses = fragment.getAddedExpenses();
                 intent.putParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES, expenses);
 

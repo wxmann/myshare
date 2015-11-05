@@ -9,16 +9,13 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.AddPeopleEntryActivity"
+            android:name=".ui.AddPeopleActivity"
             android:label="@string/app_label" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.AddPeopleDisplayActivity"
-            android:label="@string/app_name"/>
         <activity
             android:name=".ui.AddExpenseActivity"
             android:label="@string/app_name"/>
