@@ -39,10 +39,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.CumulativeTotalsActivity" />
         </activity>
-        <activity
-            android:name=".test1"
-            android:label="@string/title_activity_test1" >
-        </activity>
     </application>
 
 </manifest>
