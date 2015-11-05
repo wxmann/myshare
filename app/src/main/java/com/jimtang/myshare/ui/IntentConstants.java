@@ -7,8 +7,6 @@ public final class IntentConstants {
 
     private IntentConstants() {}
 
-    public static final String USER_INPUT_NAME = "name";
-
     public static final String ALL_NAMES = "names";
 
     public static final String ADDED_EXPENSES = "addedExpenses";
