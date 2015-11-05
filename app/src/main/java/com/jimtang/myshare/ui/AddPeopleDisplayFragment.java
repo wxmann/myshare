@@ -26,7 +26,7 @@ public class AddPeopleDisplayFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_people_display, container, false);
+        View view = inflater.inflate(R.layout.add_people_display_frag, container, false);
         ListView listView = (ListView) view.findViewById(android.R.id.list);
 
         nameList = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, preloadedPeople);
