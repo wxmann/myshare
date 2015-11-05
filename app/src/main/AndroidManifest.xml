@@ -5,26 +5,44 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-
+        android:label="@string/app_name">
         <activity
             android:name=".ui.AddPeopleActivity"
             android:label="@string/app_label" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.AddExpenseActivity"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            android:parentActivityName=".ui.AddPeopleActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.AddPeopleActivity" />
+        </activity>
         <activity
             android:name=".ui.CumulativeTotalsActivity"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            android:parentActivityName=".ui.AddExpenseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.AddExpenseActivity" />
+        </activity>
         <activity
             android:name=".ui.DisplaySharesActivity"
-            android:label="@string/app_name"/>
-
+            android:label="@string/app_name"
+            android:parentActivityName=".ui.CumulativeTotalsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.CumulativeTotalsActivity" />
+        </activity>
+        <activity
+            android:name=".test1"
+            android:label="@string/title_activity_test1" >
+        </activity>
     </application>
+
 </manifest>
