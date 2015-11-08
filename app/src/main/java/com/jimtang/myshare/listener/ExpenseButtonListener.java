@@ -127,10 +127,11 @@ public abstract class ExpenseButtonListener implements View.OnClickListener {
         // 1. validate the people that have been entered
         // are included in the names entered in the previous screen.
         String[] names = expense.getPeople();
-        if (names.length == 0) {
-            Toast.makeText(context, EMPTY_NAMES_MESSAGE, Toast.LENGTH_SHORT).show();
-        }
         for (String name: names) {
+            if (Strings.isNullOrEmpty(name)) {
+                Toast.makeText(context, EMPTY_NAMES_MESSAGE, Toast.LENGTH_SHORT).show();
+                return false;
+            }
             if (!nameOptions.contains(name)) {
                 Toast.makeText(context,
                         String.format(INVALID_NAME_MESSAGE, name), Toast.LENGTH_LONG).show();
