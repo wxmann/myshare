@@ -1,4 +1,4 @@
-package com.jimtang.myshare.calc;
+package com.jimtang.myshare.exception;
 
 /**
  * Created by tangz on 10/19/2015.

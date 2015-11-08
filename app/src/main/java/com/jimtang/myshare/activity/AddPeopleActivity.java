@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.jimtang.myshare.R;
+import com.jimtang.myshare.exception.EmptyInputsException;
 import com.jimtang.myshare.fragment.AddPeopleDisplayFragment;
 import com.jimtang.myshare.fragment.AddPeopleEntryFragment;
 import com.jimtang.myshare.listener.NameButtonListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by tangz on 11/5/2015.
@@ -60,11 +64,27 @@ public class AddPeopleActivity extends Activity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddPeopleActivity.this, AddExpenseActivity.class);
-                intent.putStringArrayListExtra(IntentConstants.ALL_NAMES, displayFragment.getAllNames());
-                startActivity(intent);
+                if (validateNonEmptyPeople()) {
+                    Intent intent = new Intent(AddPeopleActivity.this, AddExpenseActivity.class);
+                    intent.putStringArrayListExtra(IntentConstants.ALL_NAMES, displayFragment.getAllNames());
+                    startActivity(intent);
+                }
             }
         });
+    }
+
+    private boolean validateNonEmptyPeople() {
+        if (displayFragment == null) {
+            Toast.makeText(getApplicationContext(),
+                    "Please enter at least one person.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        ArrayList<String> allNames = displayFragment.getAllNames();
+        if (allNames == null || allNames.isEmpty()) {
+            throw new EmptyInputsException("Names should not be empty.");
+        }
+        return true;
     }
 
     @Override
