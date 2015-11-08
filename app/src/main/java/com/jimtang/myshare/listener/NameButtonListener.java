@@ -3,7 +3,6 @@ package com.jimtang.myshare.listener;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -31,7 +30,7 @@ public abstract class NameButtonListener implements View.OnClickListener {
     public void onClick(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
-        final View dialogView = inflater.inflate(R.layout.add_person_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_add_person, null);
 
         builder.setTitle(R.string.add_people_dialog_title)
                 .setView(dialogView)

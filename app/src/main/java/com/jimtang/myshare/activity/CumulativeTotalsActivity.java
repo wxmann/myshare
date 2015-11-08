@@ -29,7 +29,7 @@ public class CumulativeTotalsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cumulative_totals);
+        setContentView(R.layout.activity_cumulative_totals);
 
         final EditText subtotalField = (EditText) findViewById(R.id.cumul_subtotal);
 

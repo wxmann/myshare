@@ -33,7 +33,7 @@ public class AddExpenseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_expenses);
+        setContentView(R.layout.activity_add_expenses);
 
         fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()

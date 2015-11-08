@@ -36,7 +36,7 @@ public class ExpenseCollectionAdapter extends ArrayAdapter<Expense> {
         View newView = convertView;
         if (newView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            newView = inflater.inflate(R.layout.expense_listitem, null);
+            newView = inflater.inflate(R.layout.display_expense_item, null);
         }
 
         Expense expense = expenseList.get(position);

@@ -36,7 +36,7 @@ public abstract class ExpenseButtonListener implements View.OnClickListener {
     public void onClick(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
-        final View dialogView = inflater.inflate(R.layout.add_expense_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_add_expense, null);
 
         // setup the auto-dropdown menu
         final MultiAutoCompleteTextView enterNamesField = (MultiAutoCompleteTextView)

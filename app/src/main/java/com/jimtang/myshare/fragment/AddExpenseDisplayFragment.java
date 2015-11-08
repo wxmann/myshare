@@ -27,10 +27,10 @@ public class AddExpenseDisplayFragment extends ListFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_expenses_display_frag, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_expenses_display, container, false);
         ListView listView = (ListView) view.findViewById(android.R.id.list);
 
-        adapter = new ExpenseCollectionAdapter(getActivity(), R.layout.expense_listitem, preloadedExpenses);
+        adapter = new ExpenseCollectionAdapter(getActivity(), R.layout.display_expense_item, preloadedExpenses);
         listView.setAdapter(adapter);
         return view;
     }

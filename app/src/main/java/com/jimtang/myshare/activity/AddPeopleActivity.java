@@ -27,7 +27,7 @@ public class AddPeopleActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_people);
+        setContentView(R.layout.activity_add_people);
 
         // initialize entry fragment
         final FragmentManager fragmentManager = getFragmentManager();
