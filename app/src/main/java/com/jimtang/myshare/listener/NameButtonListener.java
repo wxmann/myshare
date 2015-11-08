@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.common.base.Strings;
 import com.jimtang.myshare.R;
 
 /**
@@ -15,31 +18,37 @@ import com.jimtang.myshare.R;
 public abstract class NameButtonListener implements View.OnClickListener {
 
     private Context context;
+    View dialogView;
+    AlertDialog alertDialog;
 
     public NameButtonListener(Context context) {
         this.context = context;
     }
 
-    public final Context getContext() {
-        return context;
+    void doWithInputName(String inputName) {
+        if (Strings.isNullOrEmpty(inputName)) {
+            Toast.makeText(alertDialog.getContext(),
+                    "Name cannot be empty. Please enter a non-empty name.", Toast.LENGTH_SHORT).show();
+        } else {
+            useInputName(inputName);
+            alertDialog.dismiss();
+        }
     }
 
-    protected abstract void doWithInputName(String inputName);
+    protected abstract void useInputName(String inputName);
 
     @Override
     public void onClick(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
-        final View dialogView = inflater.inflate(R.layout.dialog_add_person, null);
+        dialogView = inflater.inflate(R.layout.dialog_add_person, null);
 
         builder.setTitle(R.string.add_people_dialog_title)
                 .setView(dialogView)
                 .setPositiveButton(R.string.done, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText userInput = (EditText) dialogView.findViewById(R.id.add_person_name);
-                        String inputName = userInput.getText().toString();
-                        doWithInputName(inputName);
+                        // overriden in the show listener - hack for the validation portion.
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -48,7 +57,22 @@ public abstract class NameButtonListener implements View.OnClickListener {
                         dialog.cancel();
                     }
                 });
-        AlertDialog inputNameDialog = builder.create();
-        inputNameDialog.show();
+        alertDialog = builder.create();
+
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button okButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                okButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EditText userInput = (EditText) dialogView.findViewById(R.id.add_person_name);
+                        String inputName = userInput.getText().toString();
+                        doWithInputName(inputName);
+                    }
+                });
+            }
+        });
+        alertDialog.show();
     }
 }

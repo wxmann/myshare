@@ -39,7 +39,7 @@ public class AddPeopleActivity extends Activity {
         View addMoreNamesButton = findViewById(R.id.add_more_people_button);
         addMoreNamesButton.setOnClickListener(new NameButtonListener(this) {
             @Override
-            protected void doWithInputName(String inputName) {
+            protected void useInputName(String inputName) {
                 Fragment entryFrag = fragmentManager.findFragmentByTag(PEOPLE_ENTRY_FRAGMENT);
 
                 if (entryFrag != null) {
