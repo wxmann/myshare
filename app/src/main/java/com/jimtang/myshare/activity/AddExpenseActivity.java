@@ -15,7 +15,8 @@ import com.jimtang.myshare.R;
 import com.jimtang.myshare.exception.EmptyInputsException;
 import com.jimtang.myshare.fragment.AddExpenseDisplayFragment;
 import com.jimtang.myshare.fragment.AddExpenseEntryFragment;
-import com.jimtang.myshare.listener.ExpenseButtonListener;
+import com.jimtang.myshare.listener.AddExpenseButtonListener;
+import com.jimtang.myshare.listener.ValidatableIntentClickListener;
 import com.jimtang.myshare.model.Expense;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class AddExpenseActivity extends Activity {
         }
 
         View addExpenseButton = findViewById(R.id.add_expense_button);
-        addExpenseButton.setOnClickListener(new ExpenseButtonListener(this, nameOptions) {
+        addExpenseButton.setOnClickListener(new AddExpenseButtonListener(this, nameOptions) {
             @Override
             protected void useExpenseObject(Expense expense) {
 
@@ -71,31 +72,29 @@ public class AddExpenseActivity extends Activity {
         });
 
         View calculateButton = findViewById(R.id.calculate_button);
-        calculateButton.setOnClickListener(new View.OnClickListener() {
+        calculateButton.setOnClickListener(new ValidatableIntentClickListener(AddExpenseActivity.this,
+                CumulativeTotalsActivity.class) {
             @Override
-            public void onClick(View v) {
-                if (validateNonEmptyExpenses()) {
-                    Intent intent = new Intent(AddExpenseActivity.this, CumulativeTotalsActivity.class);
-                    intent.putParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES,
-                            expensesDisplayFragment.getAddedExpenses());
-                    startActivity(intent);
+            protected boolean validateInputs() {
+                if (expensesDisplayFragment == null) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please enter at least one expense to split.", Toast.LENGTH_SHORT).show();
+                    return false;
                 }
+
+                ArrayList<Expense> allExpenses = expensesDisplayFragment.getAddedExpenses();
+                if (allExpenses == null || allExpenses.isEmpty()) {
+                    throw new EmptyInputsException("Expenses should not be empty.");
+                }
+                return true;
+            }
+
+            @Override
+            protected void addParcelables(Intent intent) {
+                intent.putParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES,
+                        expensesDisplayFragment.getAddedExpenses());
             }
         });
-    }
-
-    private boolean validateNonEmptyExpenses() {
-        if (expensesDisplayFragment == null) {
-            Toast.makeText(getApplicationContext(),
-                    "Please enter at least one expense to split.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        ArrayList<Expense> allExpenses = expensesDisplayFragment.getAddedExpenses();
-        if (allExpenses == null || allExpenses.isEmpty()) {
-            throw new EmptyInputsException("Expenses should not be empty.");
-        }
-        return true;
     }
 
     @Override

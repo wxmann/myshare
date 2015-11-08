@@ -14,7 +14,8 @@ import com.jimtang.myshare.R;
 import com.jimtang.myshare.exception.EmptyInputsException;
 import com.jimtang.myshare.fragment.AddPeopleDisplayFragment;
 import com.jimtang.myshare.fragment.AddPeopleEntryFragment;
-import com.jimtang.myshare.listener.NameButtonListener;
+import com.jimtang.myshare.listener.AddPersonButtonListener;
+import com.jimtang.myshare.listener.ValidatableIntentClickListener;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class AddPeopleActivity extends Activity {
 
         // button to add additional names
         View addMoreNamesButton = findViewById(R.id.add_more_people_button);
-        addMoreNamesButton.setOnClickListener(new NameButtonListener(this) {
+        addMoreNamesButton.setOnClickListener(new AddPersonButtonListener(this) {
             @Override
             protected void useInputName(String inputName) {
                 Fragment entryFrag = fragmentManager.findFragmentByTag(PEOPLE_ENTRY_FRAGMENT);
@@ -61,30 +62,27 @@ public class AddPeopleActivity extends Activity {
 
         // button to get to next activity
         View nextButton = findViewById(R.id.add_people_next_button);
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new ValidatableIntentClickListener(AddPeopleActivity.this, AddExpenseActivity.class) {
             @Override
-            public void onClick(View v) {
-                if (validateNonEmptyPeople()) {
-                    Intent intent = new Intent(AddPeopleActivity.this, AddExpenseActivity.class);
-                    intent.putStringArrayListExtra(IntentConstants.ALL_NAMES, displayFragment.getAllNames());
-                    startActivity(intent);
+            protected boolean validateInputs() {
+                if (displayFragment == null) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please enter at least one person.", Toast.LENGTH_SHORT).show();
+                    return false;
                 }
+
+                ArrayList<String> allNames = displayFragment.getAllNames();
+                if (allNames == null || allNames.isEmpty()) {
+                    throw new EmptyInputsException("Names should not be empty.");
+                }
+                return true;
+            }
+
+            @Override
+            protected void addParcelables(Intent intent) {
+                intent.putStringArrayListExtra(IntentConstants.ALL_NAMES, displayFragment.getAllNames());
             }
         });
-    }
-
-    private boolean validateNonEmptyPeople() {
-        if (displayFragment == null) {
-            Toast.makeText(getApplicationContext(),
-                    "Please enter at least one person.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        ArrayList<String> allNames = displayFragment.getAllNames();
-        if (allNames == null || allNames.isEmpty()) {
-            throw new EmptyInputsException("Names should not be empty.");
-        }
-        return true;
     }
 
     @Override

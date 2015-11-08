@@ -15,13 +15,13 @@ import com.jimtang.myshare.R;
 /**
  * Created by tangz on 10/16/2015.
  */
-public abstract class NameButtonListener implements View.OnClickListener {
+public abstract class AddPersonButtonListener implements View.OnClickListener {
 
     private Context context;
     View dialogView;
     AlertDialog alertDialog;
 
-    public NameButtonListener(Context context) {
+    public AddPersonButtonListener(Context context) {
         this.context = context;
     }
 

@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by tangz on 10/16/2015.
  */
-public abstract class ExpenseButtonListener implements View.OnClickListener {
+public abstract class AddExpenseButtonListener implements View.OnClickListener {
 
     static final String INVALID_NAME_MESSAGE =
             "One of the names you entered: %s doesn't match any of the names entered in the previous Add People screen. " +
@@ -37,7 +37,7 @@ public abstract class ExpenseButtonListener implements View.OnClickListener {
     private List<String> nameOptions;
     AlertDialog alertDialog;
 
-    public ExpenseButtonListener(Context context, List<String> nameOptions) {
+    public AddExpenseButtonListener(Context context, List<String> nameOptions) {
         this.context = context;
         this.nameOptions = Collections.unmodifiableList(nameOptions);
     }
