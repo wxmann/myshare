@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/people_page_header"
-            android:src="@drawable/people3"
+            android:src="@drawable/people"
             style="@style/HeaderBalancer"/>
 
         <Button
