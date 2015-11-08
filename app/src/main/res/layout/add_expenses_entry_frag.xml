@@ -7,21 +7,14 @@
     android:gravity="center_vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Names you have entered have been saved. They will show as options when you add expenses."
+        android:text="@string/saved_names_reminder"
         android:id="@+id/names_entered_reminder"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="15dp" />
+        style="@style/EntryBodyText"
+        android:layout_marginBottom="30dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Looks like you haven't added expenses yet. Use the Add Expense button to start."
+        android:text="@string/add_expense_reminder"
         android:id="@+id/instructions_add_expenses"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="15dp" />
+        style="@style/EntryBodyText"/>
 
 </LinearLayout>

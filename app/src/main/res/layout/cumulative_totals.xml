@@ -7,14 +7,10 @@
     tools:context="com.jimtang.myshare.ui.CumulativeTotalsActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/cumul_totals_intro"
         android:id="@+id/cumul_text"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        style="@style/EntryBodyText"/>
 
     <EditText
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- Header-relevant styles -->
     <style name="HeaderSectionLayout">
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
@@ -44,11 +45,22 @@
         <item name="android:background">#90909090</item>
     </style>
 
+    <!-- Body-relevant styles -->
     <style name="BodyStyle">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="EntryBodyText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">16sp</item>
+        <!--<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>-->
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
 
 </resources>

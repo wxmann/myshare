@@ -27,9 +27,7 @@
     <View style="@style/HeaderDivider"/>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/expense_frag_container"/>
+        android:id="@+id/expense_frag_container"
+        style="@style/BodyStyle"/>
 
 </LinearLayout>

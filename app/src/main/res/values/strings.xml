@@ -26,6 +26,8 @@
     <string name="expense_name">Expense Name</string>
     <string name="amount_before_tax">Amount (before tax)</string>
     <string name="shared_checkbox_label">or split between everyone (overrides individual names)</string>
+    <string name="saved_names_reminder">Names you have entered have been saved. They will show as options when you add expenses.</string>
+    <string name="add_expense_reminder">Looks like you haven\'t added expenses yet. Use the Add Expense button to start.</string>
 
     <!-- for cumulative totals activity -->
     <string name="cumul_totals_intro">You\'re almost there! Enter your tax and tip amounts. The subtotal amount has already been filled in for you from your previous expense inputs.</string>
