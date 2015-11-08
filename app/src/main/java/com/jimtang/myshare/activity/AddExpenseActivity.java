@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
+import com.jimtang.myshare.exception.EmptyInputsException;
 import com.jimtang.myshare.model.Expense;
 import com.jimtang.myshare.fragment.AddExpenseDisplayFragment;
 import com.jimtang.myshare.fragment.AddExpenseEntryFragment;
@@ -28,6 +30,7 @@ public class AddExpenseActivity extends Activity {
     static final String EXPENSE_DISPLAY_FRAGMENT = "expenseDisplayFragment";
 
     FragmentManager fragmentManager;
+    AddExpenseDisplayFragment expensesDisplayFragment;
     List<String> nameOptions = Lists.newArrayList();
 
     @Override
@@ -51,19 +54,19 @@ public class AddExpenseActivity extends Activity {
             protected void doWithExpenseObject(Expense expense) {
 
                 Fragment entryFrag = fragmentManager.findFragmentByTag(EXPENSE_ENTRY_FRAGMENT);
-                AddExpenseDisplayFragment displayFrag;
 
                 if (entryFrag != null) {
-                    displayFrag = new AddExpenseDisplayFragment();
+                    expensesDisplayFragment = new AddExpenseDisplayFragment();
 
                     // do NOT add to back-stack as we do not want to see the entry screen again, or have it be saved.
                     fragmentManager.beginTransaction()
-                            .replace(R.id.expense_frag_container, displayFrag, EXPENSE_DISPLAY_FRAGMENT)
+                            .replace(R.id.expense_frag_container, expensesDisplayFragment, EXPENSE_DISPLAY_FRAGMENT)
                             .commit();
                 } else {
-                    displayFrag = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(EXPENSE_DISPLAY_FRAGMENT);
+                    expensesDisplayFragment = (AddExpenseDisplayFragment)
+                            fragmentManager.findFragmentByTag(EXPENSE_DISPLAY_FRAGMENT);
                 }
-                displayFrag.addExpense(expense);
+                expensesDisplayFragment.addExpense(expense);
             }
         });
 
@@ -71,16 +74,29 @@ public class AddExpenseActivity extends Activity {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddExpenseActivity.this, CumulativeTotalsActivity.class);
+                if (validateNonEmptyExpenses()) {
+                    Intent intent = new Intent(AddExpenseActivity.this, CumulativeTotalsActivity.class);
+                    intent.putParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES,
+                            expensesDisplayFragment.getAddedExpenses());
 
-                // get the expenses from the fragment, and add them to a parcelable array
-                AddExpenseDisplayFragment fragment = (AddExpenseDisplayFragment) fragmentManager.findFragmentByTag(EXPENSE_DISPLAY_FRAGMENT);
-                ArrayList<Expense> expenses = fragment.getAddedExpenses();
-                intent.putParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES, expenses);
-
-                startActivity(intent);
+                    startActivity(intent);
+                }
             }
         });
+    }
+
+    private boolean validateNonEmptyExpenses() {
+        if (expensesDisplayFragment == null) {
+            Toast.makeText(getApplicationContext(),
+                    "Please enter at least one expense to share.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        ArrayList<Expense> allExpenses = expensesDisplayFragment.getAddedExpenses();
+        if (allExpenses == null || allExpenses.isEmpty()) {
+            throw new EmptyInputsException("Expenses should not be empty.");
+        }
+        return true;
     }
 
     @Override
