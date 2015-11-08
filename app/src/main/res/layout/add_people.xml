@@ -5,32 +5,27 @@
     android:layout_height="match_parent"
     tools:context="com.jimtang.myshare.ui.AddPeopleActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+    <LinearLayout style="@style/HeaderSectionLayout">
 
-        <Button
+        <ImageButton
             android:id="@+id/add_more_people_button"
-            android:text="@string/add_more_people_button_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent" />
+            style="@style/AddButton"/>
+
+        <ImageView
+            android:id="@+id/people_page_header"
+            android:src="@drawable/people3"
+            style="@style/HeaderBalancer"/>
 
         <Button
             android:id="@+id/add_people_next_button"
-            android:text="@string/next_step"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent" />
+            style="@style/NextStepButton"/>
+
     </LinearLayout>
 
+    <View style="@style/HeaderDivider"/>
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/people_frag_container"/>
+        android:id="@+id/people_frag_container"
+        style="@style/BodyStyle"/>
 
 </LinearLayout>

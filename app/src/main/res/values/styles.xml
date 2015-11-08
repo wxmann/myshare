@@ -5,9 +5,50 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <!--<style name="InputTextHintStyle" parent="@android:style/TextAppearance:Medium">-->
-        <!--<item name="android:layout_width">fill_parent</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--</style>-->
+    <style name="HeaderSectionLayout">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:weightSum">1.0</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="AddButton">
+        <item name="android:layout_weight">0.4</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:src">@android:drawable/ic_input_add</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="HeaderBalancer">
+        <item name="android:layout_weight">0.2</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="NextStepButton">
+        <item name="android:layout_weight">0.4</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:text">@string/next_step</item>
+        <item name="android:src">@android:drawable/ic_input_add</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="HeaderDivider">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:background">#90909090</item>
+    </style>
+
+    <style name="BodyStyle">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
 
 </resources>

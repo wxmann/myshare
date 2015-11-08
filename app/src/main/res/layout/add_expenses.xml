@@ -7,43 +7,24 @@
     tools:context="com.jimtang.myshare.ui.AddExpenseActivity"
     android:baselineAligned="false">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
+    <LinearLayout style="@style/HeaderSectionLayout">
 
         <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
             android:id="@+id/add_expense_button"
-            android:src="@android:drawable/ic_input_add"
-            android:layout_weight="0.4"
-            android:background="@android:color/transparent" />
+            style="@style/AddButton"/>
 
         <ImageView
             android:id="@+id/expense_page_header"
-            android:layout_width="0dp"
-            android:layout_weight="0.2"
-            android:layout_height="fill_parent"
-            android:src="@drawable/cash2"/>
+            android:src="@drawable/cash2"
+            style="@style/HeaderBalancer"/>
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
             android:id="@+id/calculate_button"
-            android:text="@string/next_step"
-            android:layout_weight="0.4"
-            android:background="@android:color/transparent"/>
+            style="@style/NextStepButton"/>
 
     </LinearLayout>
 
-    <View
-        android:layout_height="2dp"
-        android:layout_width="fill_parent"
-        android:background="#90909090"/>
+    <View style="@style/HeaderDivider"/>
 
     <LinearLayout
         android:orientation="vertical"
