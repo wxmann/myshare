@@ -1,4 +1,4 @@
-package com.jimtang.myshare.ui;
+package com.jimtang.myshare.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,12 +8,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.model.Expense;
+import com.jimtang.myshare.fragment.AddExpenseDisplayFragment;
+import com.jimtang.myshare.fragment.AddExpenseEntryFragment;
+import com.jimtang.myshare.listener.ExpenseButtonListener;
 
 import java.util.ArrayList;
 import java.util.List;

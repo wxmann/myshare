@@ -1,4 +1,4 @@
-package com.jimtang.myshare.ui;
+package com.jimtang.myshare.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,14 +8,13 @@ import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.calc.ShareCostsCalculator;
 import com.jimtang.myshare.model.Cost;
 import com.jimtang.myshare.model.Expense;
+import com.jimtang.myshare.adapter.SplitCostsListAdapter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 

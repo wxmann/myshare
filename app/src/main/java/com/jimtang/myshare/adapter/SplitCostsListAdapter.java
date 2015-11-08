@@ -1,4 +1,4 @@
-package com.jimtang.myshare.ui;
+package com.jimtang.myshare.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

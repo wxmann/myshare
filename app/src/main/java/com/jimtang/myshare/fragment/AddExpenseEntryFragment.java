@@ -1,4 +1,4 @@
-package com.jimtang.myshare.ui;
+package com.jimtang.myshare.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;

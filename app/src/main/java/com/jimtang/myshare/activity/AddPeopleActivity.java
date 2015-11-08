@@ -1,4 +1,4 @@
-package com.jimtang.myshare.ui;
+package com.jimtang.myshare.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.jimtang.myshare.R;
+import com.jimtang.myshare.fragment.AddPeopleDisplayFragment;
+import com.jimtang.myshare.fragment.AddPeopleEntryFragment;
+import com.jimtang.myshare.listener.NameButtonListener;
 
 /**
  * Created by tangz on 11/5/2015.

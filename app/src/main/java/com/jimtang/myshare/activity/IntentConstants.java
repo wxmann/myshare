@@ -1,4 +1,4 @@
-package com.jimtang.myshare.ui;
+package com.jimtang.myshare.activity;
 
 /**
  * Created by tangz on 10/16/2015.

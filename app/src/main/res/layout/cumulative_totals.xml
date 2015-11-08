@@ -4,7 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    tools:context="com.jimtang.myshare.ui.CumulativeTotalsActivity">
+    tools:context="com.jimtang.myshare.activity.CumulativeTotalsActivity">
 
     <TextView
         android:text="@string/cumul_totals_intro"

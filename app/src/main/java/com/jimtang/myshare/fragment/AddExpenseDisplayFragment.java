@@ -1,4 +1,4 @@
-package com.jimtang.myshare.ui;
+package com.jimtang.myshare.fragment;
 
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import android.widget.ListView;
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.model.Expense;
+import com.jimtang.myshare.adapter.ExpenseCollectionAdapter;
 import com.jimtang.myshare.util.ArrayAdapterListMapper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by tangz on 10/16/2015.

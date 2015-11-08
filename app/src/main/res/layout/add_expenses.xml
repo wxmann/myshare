@@ -4,7 +4,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/add_expense_activity"
     android:orientation="vertical"
-    tools:context="com.jimtang.myshare.ui.AddExpenseActivity"
+    tools:context="com.jimtang.myshare.activity.AddExpenseActivity"
     android:baselineAligned="false">
 
     <LinearLayout style="@style/HeaderSectionLayout">

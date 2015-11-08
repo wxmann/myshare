@@ -1,4 +1,4 @@
-package com.jimtang.myshare.ui;
+package com.jimtang.myshare.activity;
 
 import android.app.Activity;
 import android.content.Intent;
