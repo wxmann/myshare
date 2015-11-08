@@ -90,7 +90,7 @@ public class AddExpenseActivity extends Activity {
             }
 
             @Override
-            protected void addParcelables(Intent intent) {
+            protected void addExtras(Intent intent) {
                 intent.putParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES,
                         expensesDisplayFragment.getAddedExpenses());
             }

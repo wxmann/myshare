@@ -79,7 +79,7 @@ public class AddPeopleActivity extends Activity {
             }
 
             @Override
-            protected void addParcelables(Intent intent) {
+            protected void addExtras(Intent intent) {
                 intent.putStringArrayListExtra(IntentConstants.ALL_NAMES, displayFragment.getAllNames());
             }
         });

@@ -23,13 +23,13 @@ public abstract class ValidatableIntentClickListener implements View.OnClickList
 
     protected abstract boolean validateInputs();
 
-    protected abstract void addParcelables(Intent intent);
+    protected abstract void addExtras(Intent intent);
 
     @Override
     public void onClick(View v) {
         if (validateInputs()) {
             Intent intent = new Intent(context, secondActivity);
-            addParcelables(intent);
+            addExtras(intent);
             context.startActivity(intent);
         }
     }
