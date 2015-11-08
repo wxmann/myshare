@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
@@ -43,7 +44,7 @@ public class AddExpenseActivity extends Activity {
             nameOptions = intent.getStringArrayListExtra(IntentConstants.ALL_NAMES);
         }
 
-        Button addExpenseButton = (Button) findViewById(R.id.add_expense_button);
+        View addExpenseButton = findViewById(R.id.add_expense_button);
         addExpenseButton.setOnClickListener(new ExpenseButtonListener(this, nameOptions) {
             @Override
             protected void doWithExpenseObject(Expense expense) {
@@ -65,7 +66,7 @@ public class AddExpenseActivity extends Activity {
             }
         });
 
-        Button calculateButton = (Button) findViewById(R.id.calculate_button);
+        View calculateButton = findViewById(R.id.calculate_button);
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

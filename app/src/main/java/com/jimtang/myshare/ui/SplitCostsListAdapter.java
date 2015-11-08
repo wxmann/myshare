@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.model.Cost;
-import com.jimtang.myshare.model.MonetaryAmount;
 
 import java.util.List;
 import java.util.Map;
@@ -18,10 +17,6 @@ import java.util.Map;
  * Created by tangz on 10/18/2015.
  */
 public class SplitCostsListAdapter extends BaseExpandableListAdapter {
-
-    static final int SUBTOTAL_CHILD_POSITION = 0;
-    static final int TAX_CHILD_POSITION = 1;
-    static final int TIP_CHILD_POSITION = 2;
 
     private Context context;
     private List<String> names;
@@ -40,8 +35,8 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        // Cost will always have three attributes: subtotal, tax, tip.
-        return 3;
+        // just the subtotal/tax/tip details.
+        return 1;
     }
 
     @Override
@@ -51,13 +46,7 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        Cost cost = nameShareMap.get(names.get(groupPosition));
-        switch (childPosition) {
-            case SUBTOTAL_CHILD_POSITION: return cost.getSubtotal();
-            case TAX_CHILD_POSITION: return cost.getTax();
-            case TIP_CHILD_POSITION: return cost.getTip();
-            default: throw new IllegalArgumentException("Invalid child position.");
-        }
+        return nameShareMap.get(names.get(groupPosition));
     }
 
     @Override
@@ -79,7 +68,7 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String name = (String) getGroup(groupPosition);
         Cost cost = nameShareMap.get(name);
-        String headerTitle = name + ": " + cost.getTotal().toFormattedString();
+        String headerTitle = name + " owes : " + cost.getTotal().toFormattedString();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -94,26 +83,24 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        MonetaryAmount amt = (MonetaryAmount) getChild(groupPosition, childPosition);
+        Cost amt = (Cost) getChild(groupPosition, childPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.display_shares_person_details, null);
         }
 
         TextView detailsView = (TextView) convertView.findViewById(R.id.share_person_detail);
-        detailsView.setText(getDisplayText(childPosition, amt));
+        detailsView.setText(getDisplayText(amt));
 
         return convertView;
     }
 
-    private String getDisplayText(int childPosition, MonetaryAmount amt) {
-        String amtTxt = amt.toFormattedString();
-        switch(childPosition) {
-            case SUBTOTAL_CHILD_POSITION: return "Subtotal: " + amtTxt;
-            case TIP_CHILD_POSITION: return "Tip: " + amtTxt;
-            case TAX_CHILD_POSITION: return "Tax: " + amtTxt;
-            default:  throw new IllegalArgumentException("Invalid child position");
-        }
+    private String getDisplayText(Cost cost) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Subtotal: ").append(cost.getSubtotal().toFormattedString()).append("\n");
+        builder.append("Tax: ").append(cost.getTax().toFormattedString()).append("\n");
+        builder.append("Tip: ").append(cost.getTip().toFormattedString());
+        return builder.toString();
     }
 
     @Override

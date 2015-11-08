@@ -9,7 +9,7 @@
     <!-- button -->
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
-    <string name="add_expense">Add New Expense</string>
+    <string name="add_expense">Add Expense</string>
     <string name="calculate_shares">Calculate All Shares</string>
 
     <!-- for add people activity -->
@@ -18,7 +18,7 @@
     <string name="add_more_people_button_name">Add more people</string>
 
     <!-- next step -->
-    <string name="next_step">Next</string>
+    <string name="next_step">Done</string>
 
     <!-- for add expense activity -->
     <string name="add_expense_dialog_title">Add Expense</string>
@@ -33,4 +33,7 @@
     <string name="cumul_tax_hint">Tax (Amount)</string>
     <string name="cumul_tip_hint">Tip (%)</string>
     <string name="cumul_totals_next_button_text">Next</string>
+
+    <!-- ETC -->
+    <string name="test_string">TEST</string>
 </resources>

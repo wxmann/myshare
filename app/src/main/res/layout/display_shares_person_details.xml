@@ -4,8 +4,10 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:text="@string/test_string"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/share_person_detail"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:padding="15dp" />
 </LinearLayout>

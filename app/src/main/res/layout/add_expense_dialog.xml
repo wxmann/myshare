@@ -7,27 +7,35 @@
         android:id="@+id/multiAutoCompleteTextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/people_who_purchased" />
+        android:hint="@string/people_who_purchased"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/shared_checkbox_label"
         android:id="@+id/sharedCheckBox"
-        android:checked="false" />
+        android:checked="false"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <EditText
         android:id="@+id/expense_name_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/expense_name"/>
+        android:hint="@string/expense_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <EditText
         android:id="@+id/expense_amount_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:hint="@string/amount_before_tax"/>
+        android:hint="@string/amount_before_tax"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
 
 </LinearLayout>

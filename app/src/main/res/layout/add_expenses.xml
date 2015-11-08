@@ -4,27 +4,46 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/add_expense_activity"
     android:orientation="vertical"
-    tools:context="com.jimtang.myshare.ui.AddExpenseActivity">
+    tools:context="com.jimtang.myshare.ui.AddExpenseActivity"
+    android:baselineAligned="false">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:weightSum="1"
+        android:layout_marginTop="10dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:id="@+id/add_expense_button"
-            android:text="@string/add_expense"
-            android:layout_gravity="left"/>
+            android:src="@android:drawable/ic_input_add"
+            android:layout_weight="0.4"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/expense_page_header"
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="fill_parent"
+            android:src="@drawable/cash2"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:id="@+id/calculate_button"
-            android:text="@string/calculate_shares"
-            android:layout_gravity="right"/>
+            android:text="@string/next_step"
+            android:layout_weight="0.4"
+            android:background="@android:color/transparent"/>
+
     </LinearLayout>
+
+    <View
+        android:layout_height="2dp"
+        android:layout_width="fill_parent"
+        android:background="#90909090"/>
 
     <LinearLayout
         android:orientation="vertical"

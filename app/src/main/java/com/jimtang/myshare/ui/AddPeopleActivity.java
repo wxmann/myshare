@@ -34,7 +34,7 @@ public class AddPeopleActivity extends Activity {
                 .commit();
 
         // button to add additional names
-        Button addMoreNamesButton = (Button) findViewById(R.id.add_more_people_button);
+        View addMoreNamesButton = findViewById(R.id.add_more_people_button);
         addMoreNamesButton.setOnClickListener(new NameButtonListener(this) {
             @Override
             protected void doWithInputName(String inputName) {
@@ -54,7 +54,7 @@ public class AddPeopleActivity extends Activity {
         });
 
         // button to get to next activity
-        Button nextButton = (Button) findViewById(R.id.add_people_next_button);
+        View nextButton = findViewById(R.id.add_people_next_button);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

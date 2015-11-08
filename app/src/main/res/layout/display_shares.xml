@@ -9,5 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sharesListView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:indicatorLeft="?android:attr/expandableListPreferredChildIndicatorLeft"/>
 </LinearLayout>

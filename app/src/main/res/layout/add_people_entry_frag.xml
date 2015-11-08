@@ -5,11 +5,14 @@
     android:layout_height="fill_parent">
 
     <TextView
-        android:layout_width="288dp"
-        android:layout_height="86dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:text="@string/add_people_button_name"
         android:id="@+id/instructions_add_people"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
 
 </FrameLayout>

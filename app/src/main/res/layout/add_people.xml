@@ -8,23 +8,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:gravity="center">
 
         <Button
             android:id="@+id/add_more_people_button"
             android:text="@string/add_more_people_button_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
 
         <Button
             android:id="@+id/add_people_next_button"
             android:text="@string/next_step"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/people_frag_container"/>

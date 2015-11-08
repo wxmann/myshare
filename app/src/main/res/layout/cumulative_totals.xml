@@ -13,7 +13,8 @@
         android:text="@string/cumul_totals_intro"
         android:id="@+id/cumul_text"
         android:layout_gravity="center_horizontal"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_marginBottom="15dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -23,7 +24,9 @@
         android:id="@+id/cumul_subtotal"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="@string/cumul_subtotal_hint"/>
+        android:hint="@string/cumul_subtotal_hint"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -33,7 +36,9 @@
         android:id="@+id/cumul_tax"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="@string/cumul_tax_hint"/>
+        android:hint="@string/cumul_tax_hint"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -43,12 +48,15 @@
         android:id="@+id/cumul_tip"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:hint="@string/cumul_tip_hint"/>
+        android:hint="@string/cumul_tip_hint"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cumul_totals_next_button_text"
         android:id="@+id/cumul_next_button"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp" />
 </LinearLayout>

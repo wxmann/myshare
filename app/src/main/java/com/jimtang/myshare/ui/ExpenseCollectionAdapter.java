@@ -40,16 +40,17 @@ public class ExpenseCollectionAdapter extends ArrayAdapter<Expense> {
         }
 
         Expense expense = expenseList.get(position);
-
         TextView itemDisplay = (TextView) newView.findViewById(R.id.expense_item_display);
-        itemDisplay.setText("Item: " + expense.getExpenseName());
-
-        TextView participantsDisplay = (TextView) newView.findViewById(R.id.expense_participant_display);
-        participantsDisplay.setText("Paying: " + Joiner.on(", ").join(expense.getPeople()));
-
-        TextView amtDisplay = (TextView) newView.findViewById(R.id.expense_amt_display);
-        amtDisplay.setText("Subtotal amount: " + expense.getAmount().toFormattedString());
+        itemDisplay.setText(getItemString(expense));
 
         return newView;
+    }
+
+    private String getItemString(Expense expense) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Item: ").append(expense.getExpenseName()).append("\n");
+        builder.append("Paying: ").append(Joiner.on(", ").join(expense.getPeople())).append("\n");
+        builder.append("Subtotal amount: ").append(expense.getAmount().toFormattedString());
+        return builder.toString();
     }
 }

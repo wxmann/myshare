@@ -3,19 +3,23 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/expense_participant_display"/>
+    <!--<TextView-->
+        <!--android:text="@string/test_string"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/expense_participant_display"/>-->
 
     <TextView
+        android:text="@string/test_string"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/expense_item_display"/>
+        android:id="@+id/expense_item_display"
+        android:padding="10dp"
+        android:textSize="16dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/expense_amt_display"/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/expense_amt_display"/>-->
 
 </LinearLayout>
