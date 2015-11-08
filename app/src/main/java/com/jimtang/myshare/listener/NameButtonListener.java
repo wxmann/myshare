@@ -26,10 +26,7 @@ public abstract class NameButtonListener implements View.OnClickListener {
     }
 
     void doWithInputName(String inputName) {
-        if (Strings.isNullOrEmpty(inputName)) {
-            Toast.makeText(alertDialog.getContext(),
-                    "Name cannot be empty. Please enter a non-empty name.", Toast.LENGTH_SHORT).show();
-        } else {
+        if (validateInputName(inputName)) {
             useInputName(inputName);
             alertDialog.dismiss();
         }
@@ -74,5 +71,18 @@ public abstract class NameButtonListener implements View.OnClickListener {
             }
         });
         alertDialog.show();
+    }
+
+    private boolean validateInputName(String inputName) {
+        if (Strings.isNullOrEmpty(inputName)) {
+            Toast.makeText(alertDialog.getContext(),
+                    "Please enter a non-empty name.", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(inputName.contains(",")) {
+            Toast.makeText(alertDialog.getContext(),
+                    "Inputted names cannot enter a comma. Please change the name.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

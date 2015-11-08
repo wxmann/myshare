@@ -29,7 +29,7 @@ import java.text.NumberFormat;
  *
  * Created by tangz on 10/18/2015.
  */
-public class MonetaryAmount implements Parcelable {
+public class MonetaryAmount implements Parcelable, Comparable<MonetaryAmount> {
 
     private static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
     private static final int DECIMALS = 2;
@@ -102,9 +102,9 @@ public class MonetaryAmount implements Parcelable {
         return this.toBigDecimal().compareTo(((MonetaryAmount)obj).toBigDecimal()) == 0;
     }
 
-    ///////////////////////////////////
-    // following methods for Parcelable
-    ///////////////////////////////////
+    //////////////////////////////////////
+    // following methods for Parcelable //
+    //////////////////////////////////////
 
     static final String AMOUNT_PARCELABLE_FLAG = "amount";
     static final String MATHCONTEXT_PARCELABLE_FLAG = "mathContext";
@@ -139,4 +139,9 @@ public class MonetaryAmount implements Parcelable {
             return new MonetaryAmount[size];
         }
     };
+
+    @Override
+    public int compareTo(MonetaryAmount another) {
+        return this.toBigDecimal().compareTo(another.toBigDecimal());
+    }
 }

@@ -13,10 +13,10 @@ import android.widget.Toast;
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.exception.EmptyInputsException;
-import com.jimtang.myshare.model.Expense;
 import com.jimtang.myshare.fragment.AddExpenseDisplayFragment;
 import com.jimtang.myshare.fragment.AddExpenseEntryFragment;
 import com.jimtang.myshare.listener.ExpenseButtonListener;
+import com.jimtang.myshare.model.Expense;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class AddExpenseActivity extends Activity {
         View addExpenseButton = findViewById(R.id.add_expense_button);
         addExpenseButton.setOnClickListener(new ExpenseButtonListener(this, nameOptions) {
             @Override
-            protected void doWithExpenseObject(Expense expense) {
+            protected void useExpenseObject(Expense expense) {
 
                 Fragment entryFrag = fragmentManager.findFragmentByTag(EXPENSE_ENTRY_FRAGMENT);
 
@@ -78,7 +78,6 @@ public class AddExpenseActivity extends Activity {
                     Intent intent = new Intent(AddExpenseActivity.this, CumulativeTotalsActivity.class);
                     intent.putParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES,
                             expensesDisplayFragment.getAddedExpenses());
-
                     startActivity(intent);
                 }
             }
@@ -88,7 +87,7 @@ public class AddExpenseActivity extends Activity {
     private boolean validateNonEmptyExpenses() {
         if (expensesDisplayFragment == null) {
             Toast.makeText(getApplicationContext(),
-                    "Please enter at least one expense to share.", Toast.LENGTH_SHORT).show();
+                    "Please enter at least one expense to split.", Toast.LENGTH_SHORT).show();
             return false;
         }
 
