@@ -82,7 +82,7 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         Share share = (Share) getGroup(groupPosition);
         String headerTitle = share.getPersonName() +
-                " owes: " + share.getIndivCumulativeCost().getTotal().toFormattedString();
+                "'s share is: " + share.getIndivCumulativeCost().getTotal().toFormattedString();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -123,8 +123,9 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
 
     private String getPortionsDisplay(Map<Expense, MonetaryAmount> amountMap) {
         String title = "Item subtotals (w/o tax or tip):\n";
+        // shouldn't happen but let's handle it anyway
         if (amountMap.isEmpty()) {
-            return title + "N/A";
+            return title + "\nN/A";
         }
         List<String> portionsPieces = Lists.newArrayList(title);
         for (Map.Entry<Expense, MonetaryAmount> expenseEntry: amountMap.entrySet()) {

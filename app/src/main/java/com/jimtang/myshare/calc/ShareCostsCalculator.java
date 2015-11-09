@@ -3,6 +3,7 @@ package com.jimtang.myshare.calc;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.jimtang.myshare.exception.CalculationException;
 import com.jimtang.myshare.model.CumulativeCost;
 import com.jimtang.myshare.model.Expense;
 import com.jimtang.myshare.model.MonetaryAmount;
@@ -75,10 +76,11 @@ public class ShareCostsCalculator {
             }
         }
         if (expenseAmts.isEmpty()) {
-            // TODO: figure out whether this is a likely scenario or not.
-//            throw new CalculationException(
-//                    String.format("Can't calculate share for: %s; (s)he wasn't added to any expenses", name));
-            return Share.getFreeCostInstance(name);
+            // when we build the expenses up through the UI, we add the names to the expenses as we go.
+            // hence not having a name being present in -ANY- expense would clearly indicate an
+            // error in internal application logic.
+            throw new CalculationException(
+                    String.format("Internal error: Can't calculate share for: %s; (s)he wasn't added to any expenses", name));
         }
 
         // now use the cumulative total to individual total ratios to calculate individual tax/tip

@@ -1,13 +1,6 @@
 package com.jimtang.myshare.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.common.collect.Maps;
-import com.jimtang.myshare.calc.ExpensePortionCalculator;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
