@@ -7,15 +7,15 @@ import android.os.Parcelable;
 /**
  * Created by tangz on 10/18/2015.
  */
-public class Cost implements Parcelable {
+public class CumulativeCost implements Parcelable {
 
-    public static final Cost FREE = new Cost(MonetaryAmount.ZERO, MonetaryAmount.ZERO, MonetaryAmount.ZERO);
+    public static final CumulativeCost FREE = new CumulativeCost(MonetaryAmount.ZERO, MonetaryAmount.ZERO, MonetaryAmount.ZERO);
 
     private MonetaryAmount subtotalPortion;
     private MonetaryAmount taxPortion;
     private MonetaryAmount tipPortion;
 
-    public Cost(MonetaryAmount subtotalPortion, MonetaryAmount taxPortion, MonetaryAmount tipPortion) {
+    public CumulativeCost(MonetaryAmount subtotalPortion, MonetaryAmount taxPortion, MonetaryAmount tipPortion) {
         this.subtotalPortion = subtotalPortion;
         this.taxPortion = taxPortion;
         this.tipPortion = tipPortion;
@@ -55,22 +55,22 @@ public class Cost implements Parcelable {
         dest.writeBundle(bundle);
     }
 
-    protected Cost(Parcel in) {
+    protected CumulativeCost(Parcel in) {
         Bundle bundle = in.readBundle(MonetaryAmount.class.getClassLoader());
         this.subtotalPortion = bundle.getParcelable(SUBTOTAL_KEY);
         this.taxPortion = bundle.getParcelable(TAX_KEY);
         this.tipPortion = bundle.getParcelable(TIP_KEY);
     }
 
-    public static final Creator<Cost> CREATOR = new Creator<Cost>() {
+    public static final Creator<CumulativeCost> CREATOR = new Creator<CumulativeCost>() {
         @Override
-        public Cost createFromParcel(Parcel in) {
-            return new Cost(in);
+        public CumulativeCost createFromParcel(Parcel in) {
+            return new CumulativeCost(in);
         }
 
         @Override
-        public Cost[] newArray(int size) {
-            return new Cost[size];
+        public CumulativeCost[] newArray(int size) {
+            return new CumulativeCost[size];
         }
     };
 }

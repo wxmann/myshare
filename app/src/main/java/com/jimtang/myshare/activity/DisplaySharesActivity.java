@@ -9,14 +9,14 @@ import android.widget.ExpandableListView;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
-import com.jimtang.myshare.calc.ShareCostsCalculator;
-import com.jimtang.myshare.model.Cost;
-import com.jimtang.myshare.model.Expense;
 import com.jimtang.myshare.adapter.SplitCostsListAdapter;
+import com.jimtang.myshare.calc.ShareCostsCalculator;
+import com.jimtang.myshare.model.CumulativeCost;
+import com.jimtang.myshare.model.Expense;
+import com.jimtang.myshare.model.Share;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by tangz on 10/18/2015.
@@ -24,7 +24,7 @@ import java.util.Map;
 public class DisplaySharesActivity extends Activity {
 
     ArrayList<Expense> expenses = Lists.newArrayList();
-    Cost totalCost = Cost.FREE;
+    CumulativeCost totalCost = CumulativeCost.FREE;
     ShareCostsCalculator calculator;
 
     @Override
@@ -38,12 +38,10 @@ public class DisplaySharesActivity extends Activity {
             expenses = intent.getParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES);
         }
         calculator = new ShareCostsCalculator(totalCost, expenses);
-
-        List<String> names = Lists.newArrayList(calculator.getParticipants());
-        Map<String, Cost> shareMap = calculator.allShares();
+        List<Share> allShares = calculator.allShares();
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.sharesListView);
-        SplitCostsListAdapter adapter = new SplitCostsListAdapter(this, names, shareMap);
+        SplitCostsListAdapter adapter = new SplitCostsListAdapter(this, allShares);
         expandableListView.setAdapter(adapter);
     }
 

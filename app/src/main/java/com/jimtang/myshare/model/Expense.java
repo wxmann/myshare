@@ -3,7 +3,7 @@ package com.jimtang.myshare.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Created by tangz on 10/16/2015.
@@ -26,7 +26,8 @@ public class Expense implements Parcelable {
     }
 
     Expense(String[] people, String expenseName, MonetaryAmount amount, boolean sharedByAll) {
-        this.people = people;
+        this.people = Arrays.copyOf(people, people.length);
+        Arrays.sort(this.people);
         this.amount = amount;
         this.expenseName = expenseName;
         this.sharedByAll = sharedByAll;
@@ -65,9 +66,35 @@ public class Expense implements Parcelable {
         return expenseName;
     }
 
-    ///////////////////////////////////
-    // following methods for Parcelable
-    ///////////////////////////////////
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Expense expense = (Expense) o;
+
+        if (!Arrays.equals(people, expense.people)) {
+            return false;
+        }
+        if (!amount.equals(expense.amount)) {
+            return false;
+        }
+        return expenseName.equals(expense.expenseName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(people);
+        result = 31 * result + amount.hashCode();
+        result = 31 * result + expenseName.hashCode();
+        return result;
+    }
+
+    //// following methods for Parcelable //////////////
 
     @Override
     public int describeContents() {

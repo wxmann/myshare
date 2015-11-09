@@ -3,13 +3,12 @@ package com.jimtang.myshare.calc;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.jimtang.myshare.exception.CalculationException;
-import com.jimtang.myshare.model.Cost;
+import com.jimtang.myshare.model.CumulativeCost;
 import com.jimtang.myshare.model.Expense;
 import com.jimtang.myshare.model.MonetaryAmount;
+import com.jimtang.myshare.model.Share;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,24 +19,17 @@ import java.util.Set;
 public class ShareCostsCalculator {
 
     private List<Expense> expenses;
-    private Cost totalCost;
+    private CumulativeCost totalCost;
+
+    private ExpensePortionCalculator portionCalculator = ExpensePortionCalculator.getInstance();
+    private SumAggregator aggregator = SumAggregator.getInstance();
 
     private Set<String> allParticipants;
-    private Map<String, Cost> cachedAllShares;
+    private List<Share> cachedAllShares;
 
-    public ShareCostsCalculator(Cost totalCost, List<Expense> expenses) {
+    public ShareCostsCalculator(CumulativeCost totalCost, List<Expense> expenses) {
         this.totalCost = totalCost;
         this.expenses = expenses;
-    }
-
-    List<Expense> filterForPerson(String name) {
-        List<Expense> expensesForPerson = Lists.newArrayList();
-        for (Expense expense: expenses) {
-            if (expense.involves(name)) {
-                expensesForPerson.add(expense);
-            }
-        }
-        return expensesForPerson;
     }
 
     public Set<String> getParticipants() {
@@ -59,52 +51,48 @@ public class ShareCostsCalculator {
 
     // bad algorithm, but won't matter for small data volumes.
     // for manual inputs, won't expect participants >~ 10.
-    public Map<String, Cost> allShares() {
+    public List<Share> allShares() {
         if (cachedAllShares == null) {
-            cachedAllShares = Maps.newHashMap();
+            cachedAllShares = Lists.newArrayList();
             for (String name: getParticipants()) {
-                cachedAllShares.put(name, shareFor(name));
+                cachedAllShares.add(shareFor(name));
             }
         }
         return cachedAllShares;
     }
 
-    public Cost shareFor(String name) {
+    public Share shareFor(String name) {
         if (totalCost.getTotal().equals(MonetaryAmount.ZERO)) {
-            return Cost.FREE;
+            return Share.getFreeCostInstance(name);
         }
 
+        // calculate portions of expenses for me
+        final Map<Expense, MonetaryAmount> expenseAmts = Maps.newHashMap();
+        for (Expense expense: expenses) {
+            MonetaryAmount portion = portionCalculator.expensePortionFor(name, expense);
+            if (!portion.equals(MonetaryAmount.ZERO)) {
+                expenseAmts.put(expense, portion);
+            }
+        }
+        if (expenseAmts.isEmpty()) {
+            // TODO: figure out whether this is a likely scenario or not.
+//            throw new CalculationException(
+//                    String.format("Can't calculate share for: %s; (s)he wasn't added to any expenses", name));
+            return Share.getFreeCostInstance(name);
+        }
+
+        // now use the cumulative total to individual total ratios to calculate individual tax/tip
         final MonetaryAmount totalSubtotal = totalCost.getSubtotal();
         final MonetaryAmount totalTax = totalCost.getTax();
         final MonetaryAmount totalTip = totalCost.getTip();
 
-        List<Expense> filteredForPerson = filterForPerson(name);
-        if (filteredForPerson.isEmpty()) {
-            // can't imagine this scenario but we should be careful nonetheless.
-            throw new CalculationException(
-                    String.format("Can't calculate share for: %s; (s)he wasn't added to any expenses", name));
-        }
+        MonetaryAmount resultSubtotal = aggregator.aggregateAmounts(expenseAmts.values());
+        // do not worry about the divide by zero; taken care of earlier check whether expenses are empty.
+        BigDecimal singleToTotalRatio = resultSubtotal.divide(totalSubtotal);
+        MonetaryAmount resultTax = totalTax.multiply(singleToTotalRatio);
+        MonetaryAmount resultTip = totalTip.multiply(singleToTotalRatio);
 
-        MonetaryAmount resultSubtotal = MonetaryAmount.ZERO;
-        MonetaryAmount resultTax = MonetaryAmount.ZERO;
-        MonetaryAmount resultTip = MonetaryAmount.ZERO;
-
-        for (Expense involvedExpense: filteredForPerson) {
-            MonetaryAmount subtotalForExpense = involvedExpense.getAmount();
-
-            // this divide uses MonetaryAmount which takes care of repeating decimals.
-            BigDecimal singleToTotalRatio = subtotalForExpense.divide(totalSubtotal);
-            BigDecimal numberOfPeople = new BigDecimal(involvedExpense.numberOfPeople());
-
-            // this divide uses BigDecimal which does NOT take care of repeating decimals.
-            // hence have to provide explicit rounding parameters
-            BigDecimal scalingFactor = singleToTotalRatio.divide(numberOfPeople,
-                    MonetaryAmount.DIVISION_SCALE, RoundingMode.CEILING);
-
-            resultSubtotal = resultSubtotal.add(totalSubtotal.multiply(scalingFactor));
-            resultTax = resultTax.add(totalTax.multiply(scalingFactor));
-            resultTip = resultTip.add(totalTip.multiply(scalingFactor));
-        }
-        return new Cost(resultSubtotal, resultTax, resultTip);
+        CumulativeCost totalCost = new CumulativeCost(resultSubtotal, resultTax, resultTip);
+        return new Share(name, expenseAmts, totalCost);
     }
 }

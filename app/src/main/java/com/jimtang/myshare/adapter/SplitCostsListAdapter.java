@@ -7,8 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
-import com.jimtang.myshare.model.Cost;
+import com.jimtang.myshare.model.CumulativeCost;
+import com.jimtang.myshare.model.Expense;
+import com.jimtang.myshare.model.MonetaryAmount;
+import com.jimtang.myshare.model.Share;
 
 import java.util.List;
 import java.util.Map;
@@ -18,35 +23,44 @@ import java.util.Map;
  */
 public class SplitCostsListAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
-    private List<String> names;
-    private Map<String, Cost> nameShareMap;
+    static final int PORTIONS_POSITION = 0;
+    static final int CUMUL_COSTS_POSITION = 1;
 
-    public SplitCostsListAdapter(Context context, List<String> names, Map<String, Cost> nameShareMap) {
+    private Context context;
+    private List<Share> shares;
+
+    public SplitCostsListAdapter(Context context, List<Share> shares) {
         this.context = context;
-        this.names = names;
-        this.nameShareMap = nameShareMap;
+        this.shares = shares;
     }
 
     @Override
     public int getGroupCount() {
-        return names.size();
+        return shares.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        // just the subtotal/tax/tip details.
-        return 1;
+        // just the subtotal/tax/tip details and share details.
+        return 2;
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return names.get(groupPosition);
+        return shares.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return nameShareMap.get(names.get(groupPosition));
+        Share share = shares.get(groupPosition);
+        switch (childPosition) {
+            case PORTIONS_POSITION:
+                return share.getExpensePortions();
+            case CUMUL_COSTS_POSITION:
+                return share.getIndivCumulativeCost();
+            default:
+                throw new IllegalArgumentException("Invalid child position in shared costs list");
+        }
     }
 
     @Override
@@ -66,9 +80,9 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String name = (String) getGroup(groupPosition);
-        Cost cost = nameShareMap.get(name);
-        String headerTitle = name + " owes : " + cost.getTotal().toFormattedString();
+        Share share = (Share) getGroup(groupPosition);
+        String headerTitle = share.getPersonName() +
+                " owes: " + share.getIndivCumulativeCost().getTotal().toFormattedString();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -83,20 +97,50 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        Cost amt = (Cost) getChild(groupPosition, childPosition);
+        String textToDisplay;
+        Object childObj = getChild(groupPosition, childPosition);
+        switch (childPosition) {
+            case PORTIONS_POSITION:
+                textToDisplay = getPortionsDisplay((Map<Expense, MonetaryAmount>) childObj);
+                break;
+            case CUMUL_COSTS_POSITION:
+                textToDisplay = getCumulativeDisplay((CumulativeCost) childObj);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid group/child position");
+
+        }
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.display_shares_person_details, null);
         }
 
         TextView detailsView = (TextView) convertView.findViewById(R.id.share_person_detail);
-        detailsView.setText(getDisplayText(amt));
+        detailsView.setText(textToDisplay);
 
         return convertView;
     }
 
-    private String getDisplayText(Cost cost) {
-        StringBuilder builder = new StringBuilder();
+    private String getPortionsDisplay(Map<Expense, MonetaryAmount> amountMap) {
+        String title = "Item subtotals (w/o tax or tip):\n";
+        if (amountMap.isEmpty()) {
+            return title + "N/A";
+        }
+        List<String> portionsPieces = Lists.newArrayList(title);
+        for (Map.Entry<Expense, MonetaryAmount> expenseEntry: amountMap.entrySet()) {
+            StringBuilder builder = new StringBuilder();
+            Expense expense = expenseEntry.getKey();
+            MonetaryAmount amount = expenseEntry.getValue();
+            builder.append(expense.getExpenseName());
+            builder.append(": ");
+            builder.append(amount.toFormattedString());
+            portionsPieces.add(builder.toString());
+        }
+        return Joiner.on("\n").join(portionsPieces);
+    }
+
+    private String getCumulativeDisplay(CumulativeCost cost) {
+        StringBuilder builder = new StringBuilder("Cumulative amounts:\n\n");
         builder.append("Subtotal: ").append(cost.getSubtotal().toFormattedString()).append("\n");
         builder.append("Tax: ").append(cost.getTax().toFormattedString()).append("\n");
         builder.append("Tip: ").append(cost.getTip().toFormattedString());

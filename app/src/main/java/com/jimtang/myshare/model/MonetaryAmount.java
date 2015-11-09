@@ -71,6 +71,10 @@ public class MonetaryAmount implements Parcelable, Comparable<MonetaryAmount> {
         return new MonetaryAmount(this.amount.multiply(scalar), false);
     }
 
+    public MonetaryAmount divide(BigDecimal scalar) {
+        return new MonetaryAmount(this.amount.divide(scalar, DIVISION_SCALE, RoundingMode.CEILING), false);
+    }
+
     // currency units cancel out in the division operation
     public BigDecimal divide(MonetaryAmount other) {
         return this.amount.divide(other.amount, DIVISION_SCALE, RoundingMode.CEILING);

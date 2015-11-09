@@ -11,8 +11,8 @@ import android.widget.EditText;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
-import com.jimtang.myshare.calc.ExpenseSumAggregator;
-import com.jimtang.myshare.model.Cost;
+import com.jimtang.myshare.calc.SumAggregator;
+import com.jimtang.myshare.model.CumulativeCost;
 import com.jimtang.myshare.model.Expense;
 import com.jimtang.myshare.model.MonetaryAmount;
 
@@ -36,7 +36,7 @@ public class CumulativeTotalsActivity extends Activity {
         Intent receivedIntent = getIntent();
         if (receivedIntent != null) {
             expenses = receivedIntent.getParcelableArrayListExtra(IntentConstants.ADDED_EXPENSES);
-            MonetaryAmount subtotal = ExpenseSumAggregator.getInstance().aggregate(expenses);
+            MonetaryAmount subtotal = SumAggregator.getInstance().aggregateExpenses(expenses);
             subtotalField.setText(subtotal.toNumericString());
         }
 
@@ -57,7 +57,7 @@ public class CumulativeTotalsActivity extends Activity {
                 BigDecimal tipDecimal = tipPercentage.divide(new BigDecimal(100));
                 MonetaryAmount tipAmt = subtotalAmt.add(taxAmt).multiply(tipDecimal);
 
-                Cost totalCost = new Cost(subtotalAmt, taxAmt, tipAmt);
+                CumulativeCost totalCost = new CumulativeCost(subtotalAmt, taxAmt, tipAmt);
                 Intent intent = new Intent(CumulativeTotalsActivity.this, DisplaySharesActivity.class);
                 intent.putExtra(IntentConstants.ADDED_EXPENSES, expenses);
                 intent.putExtra(IntentConstants.TOTAL_COSTS, totalCost);
