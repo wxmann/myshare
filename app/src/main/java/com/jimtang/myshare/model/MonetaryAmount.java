@@ -40,8 +40,8 @@ public class MonetaryAmount implements Parcelable, Comparable<MonetaryAmount> {
 
     public static final MonetaryAmount ZERO = new MonetaryAmount("0.0");
 
-    private BigDecimal amount;
-    private MathContext mathContext;
+    private final BigDecimal amount;
+    private final MathContext mathContext;
 
     public MonetaryAmount(BigDecimal bigDecimalValue) {
         this(bigDecimalValue, true);

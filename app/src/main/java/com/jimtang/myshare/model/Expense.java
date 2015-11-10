@@ -55,7 +55,9 @@ public class Expense implements Parcelable {
     }
 
     public String[] getPeople() {
-        return people;
+        String[] pplCopy = new String[people.length];
+        System.arraycopy(people, 0, pplCopy, 0, people.length);
+        return pplCopy;
     }
 
     public MonetaryAmount getAmount() {

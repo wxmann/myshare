@@ -11,9 +11,9 @@ public class CumulativeCost implements Parcelable {
 
     public static final CumulativeCost FREE = new CumulativeCost(MonetaryAmount.ZERO, MonetaryAmount.ZERO, MonetaryAmount.ZERO);
 
-    private MonetaryAmount subtotalPortion;
-    private MonetaryAmount taxPortion;
-    private MonetaryAmount tipPortion;
+    private final MonetaryAmount subtotalPortion;
+    private final MonetaryAmount taxPortion;
+    private final MonetaryAmount tipPortion;
 
     public CumulativeCost(MonetaryAmount subtotalPortion, MonetaryAmount taxPortion, MonetaryAmount tipPortion) {
         this.subtotalPortion = subtotalPortion;

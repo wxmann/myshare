@@ -1,5 +1,6 @@
 package com.jimtang.myshare.model;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,9 +9,9 @@ import java.util.Map;
  */
 public class Share /* implements Parcelable */ {
 
-    private String personName;
-    private Map<Expense, MonetaryAmount> expensePortions;
-    private CumulativeCost indivCumulativeCost;
+    private final String personName;
+    private final Map<Expense, MonetaryAmount> expensePortions;
+    private final CumulativeCost indivCumulativeCost;
 
     public static Share getFreeCostInstance(String personName) {
         return new Share(personName, new HashMap<Expense, MonetaryAmount>(), CumulativeCost.FREE);
@@ -27,7 +28,7 @@ public class Share /* implements Parcelable */ {
     }
 
     public Map<Expense, MonetaryAmount> getExpensePortions() {
-        return expensePortions;
+        return Collections.unmodifiableMap(expensePortions);
     }
 
     public CumulativeCost getIndivCumulativeCost() {
