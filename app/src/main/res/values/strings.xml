@@ -19,6 +19,7 @@
 
     <!-- next step -->
     <string name="next_step">Done</string>
+    <string name="persist_text">Save</string>
 
     <!-- for add expense activity -->
     <string name="add_expense_dialog_title">Add Expense</string>
@@ -38,4 +39,10 @@
 
     <!-- ETC -->
     <string name="test_string">TEST</string>
+
+    <!-- Header strings -->
+    <string name="add_people_header">Add People</string>
+    <string name="add_expenses_header">Add Expenses</string>
+    <string name="review_shares_header">Review</string>
+
 </resources>

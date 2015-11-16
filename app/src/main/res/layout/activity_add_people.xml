@@ -7,13 +7,14 @@
 
     <LinearLayout style="@style/HeaderSectionLayout">
 
+
         <ImageButton
             android:id="@+id/add_more_people_button"
             style="@style/AddButton"/>
 
-        <ImageView
+        <TextView
             android:id="@+id/people_page_header"
-            android:src="@drawable/people"
+            android:text="@string/add_people_header"
             style="@style/HeaderBalancer"/>
 
         <Button

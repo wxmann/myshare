@@ -12,12 +12,12 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:gravity">center</item>
         <item name="android:weightSum">1.0</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
     </style>
 
     <style name="AddButton">
-        <item name="android:layout_weight">0.4</item>
+        <item name="android:layout_weight">0.3</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:src">@android:drawable/ic_input_add</item>
@@ -25,13 +25,15 @@
     </style>
 
     <style name="HeaderBalancer">
-        <item name="android:layout_weight">0.2</item>
+        <item name="android:layout_weight">0.4</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
     <style name="NextStepButton">
-        <item name="android:layout_weight">0.4</item>
+        <item name="android:layout_weight">0.3</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:text">@string/next_step</item>

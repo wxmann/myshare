@@ -5,6 +5,25 @@
     android:layout_height="match_parent"
     tools:context="com.jimtang.myshare.activity.DisplaySharesActivity">
 
+    <LinearLayout style="@style/HeaderSectionLayout">
+
+        <ImageButton
+            android:id="@+id/shares_display_balancer"
+            style="@style/AddButton"
+            android:alpha="0.0"/>
+
+        <TextView
+            android:id="@+id/shares_display_header"
+            android:text="@string/review_shares_header"
+            style="@style/HeaderBalancer"/>
+
+        <Button
+            android:id="@+id/persist_share_button"
+            android:text="@string/persist_text"
+            style="@style/NextStepButton"/>
+
+    </LinearLayout>
+
     <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

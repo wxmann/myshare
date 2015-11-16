@@ -13,9 +13,9 @@
             android:id="@+id/add_expense_button"
             style="@style/AddButton"/>
 
-        <ImageView
+        <TextView
             android:id="@+id/expense_page_header"
-            android:src="@drawable/cash2"
+            android:text="@string/add_expenses_header"
             style="@style/HeaderBalancer"/>
 
         <Button
