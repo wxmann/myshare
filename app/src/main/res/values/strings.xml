@@ -31,7 +31,9 @@
     <string name="add_expense_reminder">Looks like you haven\'t added expenses yet. Use the Add Expense button to start.</string>
 
     <!-- for cumulative totals activity -->
-    <string name="cumul_totals_intro">You\'re almost there! Enter your tax and tip amounts. The subtotal amount has already been filled in for you from your previous expense inputs.</string>
+    <string name="cumul_totals_intro">You\'re almost there! Enter your tax and tip amounts.
+        The subtotal amount has already been filled in for you from your previous expense inputs.
+    \n\n Note: if you do not provide a tip and tax amount, they default to zero.</string>
     <string name="cumul_subtotal_hint">Subtotal</string>
     <string name="cumul_tax_hint">Tax (Amount)</string>
     <string name="cumul_tip_hint">Tip (%)</string>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.calc.SumAggregator;
@@ -45,14 +46,22 @@ public class CumulativeTotalsActivity extends AbstractMyShareActivity {
                 MonetaryAmount subtotalAmt = new MonetaryAmount(subtotalField.getText().toString());
 
                 EditText taxField = (EditText) findViewById(R.id.cumul_tax);
-                MonetaryAmount taxAmt = new MonetaryAmount(taxField.getText().toString());
+                String taxStr = taxField.getText().toString();
+                MonetaryAmount taxAmt = Strings.isNullOrEmpty(taxStr) ? MonetaryAmount.ZERO : new MonetaryAmount(taxStr);
 
                 EditText tipField = (EditText) findViewById(R.id.cumul_tip);
-                BigDecimal tipPercentage = new BigDecimal(tipField.getText().toString());
-                // we can do this without worrying about an ArithmeticException because
-                // all tip percentage user inputs will be rational.
-                BigDecimal tipDecimal = tipPercentage.divide(new BigDecimal(100));
-                MonetaryAmount tipAmt = subtotalAmt.add(taxAmt).multiply(tipDecimal);
+                String tipStr = tipField.getText().toString();
+
+                MonetaryAmount tipAmt;
+                if (Strings.isNullOrEmpty(tipStr)) {
+                    tipAmt = MonetaryAmount.ZERO;
+                } else {
+                    BigDecimal tipPercentage = new BigDecimal(tipField.getText().toString());
+                    // we can do this without worrying about an ArithmeticException because
+                    // all tip percentage user inputs will be rational.
+                    BigDecimal tipDecimal = tipPercentage.divide(new BigDecimal(100));
+                    tipAmt = subtotalAmt.add(taxAmt).multiply(tipDecimal);
+                }
 
                 CumulativeCost totalCost = new CumulativeCost(subtotalAmt, taxAmt, tipAmt);
                 Intent intent = new Intent(CumulativeTotalsActivity.this, DisplaySharesActivity.class);
