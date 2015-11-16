@@ -9,5 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/share_person_detail"
         android:layout_gravity="center_horizontal"
-        android:padding="15dp" />
+        android:paddingLeft="15dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"/>
 </LinearLayout>

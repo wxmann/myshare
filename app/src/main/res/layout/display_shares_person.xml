@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/share_person"
         android:layout_gravity="center_horizontal"
-        android:textAppearance="?android:textAppearanceLarge"
+        android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold"
         android:padding="10dp" />
 </LinearLayout>
