@@ -47,4 +47,8 @@
     <string name="add_expenses_header">Add Expenses</string>
     <string name="review_shares_header">Review</string>
 
+    <!-- Save shares -->
+    <string name="prompt_identifier_share">Name</string>
+    <string name="save_share_name_description">Last step! Please provide a unique identifier for this group of expenses.</string>
+
 </resources>
