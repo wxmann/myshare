@@ -11,7 +11,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.model.CumulativeCost;
-import com.jimtang.myshare.model.Expense;
 import com.jimtang.myshare.model.MonetaryAmount;
 import com.jimtang.myshare.model.Share;
 
@@ -101,7 +100,12 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
         Object childObj = getChild(groupPosition, childPosition);
         switch (childPosition) {
             case PORTIONS_POSITION:
-                textToDisplay = getPortionsDisplay((Map<Expense, MonetaryAmount>) childObj);
+                if (childObj instanceof Map) {
+                    textToDisplay = getPortionsDisplay((Map<String, MonetaryAmount>) childObj);
+                } else {
+                    throw new ClassCastException
+                            ("Internal error: Cannot cast child object to a Map<String, MonetaryAmount>");
+                }
                 break;
             case CUMUL_COSTS_POSITION:
                 textToDisplay = getCumulativeDisplay((CumulativeCost) childObj);
@@ -121,18 +125,18 @@ public class SplitCostsListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    private String getPortionsDisplay(Map<Expense, MonetaryAmount> amountMap) {
+    private String getPortionsDisplay(Map<String, MonetaryAmount> amountMap) {
         String title = "Item subtotals (w/o tax or tip):\n";
         // shouldn't happen but let's handle it anyway
         if (amountMap.isEmpty()) {
             return title + "\nN/A";
         }
         List<String> portionsPieces = Lists.newArrayList(title);
-        for (Map.Entry<Expense, MonetaryAmount> expenseEntry: amountMap.entrySet()) {
+        for (Map.Entry<String, MonetaryAmount> expenseEntry: amountMap.entrySet()) {
             StringBuilder builder = new StringBuilder();
-            Expense expense = expenseEntry.getKey();
+            String expenseName = expenseEntry.getKey();
             MonetaryAmount amount = expenseEntry.getValue();
-            builder.append(expense.getExpenseName());
+            builder.append(expenseName);
             builder.append(": ");
             builder.append(amount.toFormattedString());
             portionsPieces.add(builder.toString());

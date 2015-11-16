@@ -68,11 +68,11 @@ public class ShareCostsCalculator {
         }
 
         // calculate portions of expenses for me
-        final Map<Expense, MonetaryAmount> expenseAmts = Maps.newHashMap();
+        final Map<String, MonetaryAmount> expenseAmts = Maps.newHashMap();
         for (Expense expense: expenses) {
             MonetaryAmount portion = portionCalculator.expensePortionFor(name, expense);
             if (!portion.equals(MonetaryAmount.ZERO)) {
-                expenseAmts.put(expense, portion);
+                expenseAmts.put(expense.getExpenseName(), portion);
             }
         }
         if (expenseAmts.isEmpty()) {

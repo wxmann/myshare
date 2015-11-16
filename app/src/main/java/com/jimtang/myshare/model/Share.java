@@ -10,14 +10,14 @@ import java.util.Map;
 public class Share /* implements Parcelable */ {
 
     private final String personName;
-    private final Map<Expense, MonetaryAmount> expensePortions;
+    private final Map<String, MonetaryAmount> expensePortions;
     private final CumulativeCost indivCumulativeCost;
 
     public static Share getFreeCostInstance(String personName) {
-        return new Share(personName, new HashMap<Expense, MonetaryAmount>(), CumulativeCost.FREE);
+        return new Share(personName, new HashMap<String, MonetaryAmount>(), CumulativeCost.FREE);
     }
 
-    public Share(String personName, Map<Expense, MonetaryAmount> expensePortions, CumulativeCost indivCumulativeCost) {
+    public Share(String personName, Map<String, MonetaryAmount> expensePortions, CumulativeCost indivCumulativeCost) {
         this.personName = personName;
         this.expensePortions = expensePortions;
         this.indivCumulativeCost = indivCumulativeCost;
@@ -27,7 +27,7 @@ public class Share /* implements Parcelable */ {
         return personName;
     }
 
-    public Map<Expense, MonetaryAmount> getExpensePortions() {
+    public Map<String, MonetaryAmount> getExpensePortions() {
         return Collections.unmodifiableMap(expensePortions);
     }
 

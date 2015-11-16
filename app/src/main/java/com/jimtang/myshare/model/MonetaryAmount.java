@@ -71,6 +71,7 @@ public class MonetaryAmount implements Parcelable, Comparable<MonetaryAmount> {
         return new MonetaryAmount(this.amount.multiply(scalar), false);
     }
 
+    // Does the same thing as multiply(1/scalar)
     public MonetaryAmount divide(BigDecimal scalar) {
         return new MonetaryAmount(this.amount.divide(scalar, DIVISION_SCALE, RoundingMode.CEILING), false);
     }
@@ -84,8 +85,12 @@ public class MonetaryAmount implements Parcelable, Comparable<MonetaryAmount> {
         return amount.setScale(mathContext.getPrecision(), mathContext.getRoundingMode());
     }
 
+    public double toDouble() {
+        return toBigDecimal().doubleValue();
+    }
+
     public String toFormattedString() {
-        return NumberFormat.getCurrencyInstance().format(amount.doubleValue());
+        return NumberFormat.getCurrencyInstance().format(toDouble());
     }
 
     public String toNumericString() {
