@@ -50,5 +50,6 @@
     <!-- Save shares -->
     <string name="prompt_identifier_share">Name</string>
     <string name="save_share_name_description">Last step! Please provide a unique identifier for this group of expenses.</string>
+    <string name="title_activity_view_historical_shares">ViewHistoricalSharesActivity</string>
 
 </resources>

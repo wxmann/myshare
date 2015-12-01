@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.common.collect.Lists;
 import com.jimtang.myshare.model.CumulativeCost;
-import com.jimtang.myshare.model.Expense;
 import com.jimtang.myshare.model.MonetaryAmount;
 import com.jimtang.myshare.model.MyShareSession;
 import com.jimtang.myshare.model.Share;
@@ -23,15 +22,15 @@ import static com.jimtang.myshare.db.MyShareTables.SHARES;
 /**
  * Created by tangz on 11/10/2015.
  */
-public class MyShareDbDAO {
+public class SaveShareDAO {
 
     private MyShareDbHelper dbHelper;
 
-    public static MyShareDbDAO getInstanceForContext(Context context) {
-        return new MyShareDbDAO(new MyShareDbHelper(context));
+    public static SaveShareDAO getInstanceForContext(Context context) {
+        return new SaveShareDAO(new MyShareDbHelper(context));
     }
 
-    public MyShareDbDAO(MyShareDbHelper dbHelper) {
+    public SaveShareDAO(MyShareDbHelper dbHelper) {
         this.dbHelper = dbHelper;
     }
 
@@ -45,18 +44,25 @@ public class MyShareDbDAO {
     }
 
     Long getLastPersonId(String person) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(PEOPLE.tableName(),
-                new String[] {String.format("MAX(%s) as %s", PEOPLE._ID, PEOPLE._ID)},
-                COLUMN_NAME + "=?",
-                new String[]{person},
-                null,
-                null,
-                null);
+            cursor = db.query(PEOPLE.tableName(),
+                    new String[]{String.format("MAX(%s) as %s", PEOPLE._ID, PEOPLE._ID)},
+                    COLUMN_NAME + "=?",
+                    new String[]{person},
+                    null,
+                    null,
+                    null);
 
-        cursor.moveToFirst();
-        return cursor.getLong(cursor.getColumnIndexOrThrow(PEOPLE._ID));
+            cursor.moveToFirst();
+            return cursor.getLong(cursor.getColumnIndexOrThrow(PEOPLE._ID));
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     public Long saveSession(MyShareSession session) {

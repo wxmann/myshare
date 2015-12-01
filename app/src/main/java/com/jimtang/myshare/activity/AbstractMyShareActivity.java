@@ -41,5 +41,7 @@ abstract class AbstractMyShareActivity extends Activity {
     }
 
     private void kickOffSavedShares() {
+        Intent intent = new Intent(this, ViewHistoricalSharesActivity.class);
+        startActivity(intent);
     }
 }

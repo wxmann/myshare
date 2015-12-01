@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,10 +14,12 @@ public class MyShareSession {
 
     private final String sessionName;
     private final List<Share> shares;
+    private final Date timestamp;
 
-    public MyShareSession(String sessionName, List<Share> shares) {
+    public MyShareSession(String sessionName, List<Share> shares, Date timestamp) {
         this.sessionName = sessionName;
         this.shares = shares;
+        this.timestamp = timestamp;
     }
 
     public String getSessionName() {
@@ -33,5 +36,9 @@ public class MyShareSession {
             ppl.add(share.getPersonName());
         }
         return ppl;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
     }
 }

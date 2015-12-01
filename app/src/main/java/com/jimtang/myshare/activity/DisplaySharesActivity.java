@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.adapter.SplitCostsListAdapter;
 import com.jimtang.myshare.calc.ShareCostsCalculator;
-import com.jimtang.myshare.db.MyShareDbDAO;
+import com.jimtang.myshare.db.SaveShareDAO;
 import com.jimtang.myshare.listener.SaveShareButtonListener;
 import com.jimtang.myshare.model.CumulativeCost;
 import com.jimtang.myshare.model.Expense;
@@ -17,6 +17,7 @@ import com.jimtang.myshare.model.MyShareSession;
 import com.jimtang.myshare.model.Share;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,8 +50,8 @@ public class DisplaySharesActivity extends AbstractMyShareActivity {
         saveButton.setOnClickListener(new SaveShareButtonListener(this) {
             @Override
             protected void useShareName(String shareName) {
-                MyShareSession session = new MyShareSession(shareName, allShares);
-                MyShareDbDAO dao = MyShareDbDAO.getInstanceForContext(DisplaySharesActivity.this);
+                MyShareSession session = new MyShareSession(shareName, allShares, new Date());
+                SaveShareDAO dao = SaveShareDAO.getInstanceForContext(DisplaySharesActivity.this);
                 dao.saveSession(session);
             }
         });
