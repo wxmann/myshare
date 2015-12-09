@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.jimtang.myshare.db.MyShareTables.SESSIONS;
 import static com.jimtang.myshare.db.MyShareTables.SHARES;
@@ -57,6 +58,9 @@ public class GetShareDAO {
 
                 String timeStr = cursor.getString(cursor.getColumnIndex(MyShareTables.COLUMN_SAVED_ON));
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                // This is a hack. SQLite db apparently saves in GMT time, so we have to make sure
+                // we parse the time into GMT.
+                dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+00"));
                 Date date = dateFormat.parse(timeStr);
 
                 Long id = cursor.getLong(cursor.getColumnIndex(SESSIONS._ID));

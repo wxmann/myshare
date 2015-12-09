@@ -12,12 +12,13 @@ import com.google.common.collect.Lists;
 import com.jimtang.myshare.R;
 import com.jimtang.myshare.model.MyShareSession;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by tangz on 12/5/2015.
@@ -42,12 +43,19 @@ public class HistoricalSharesAdapter extends ArrayAdapter<MyShareSession> {
         title.setText(session.getSessionName());
 
         TextView time = (TextView) newView.findViewById(R.id.sessionTime);
-        time.setText(new SimpleDateFormat("MM/dd/yyyy h:mm a").format(session.getTimestamp()));
+        time.setText(dateString(session));
 
         TextView people = (TextView) newView.findViewById(R.id.sessionPeople);
         people.setText(peopleString(session));
 
         return newView;
+    }
+
+    private String dateString(MyShareSession session) {
+        Date date = session.getTimestamp();
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+        dateFormat.setTimeZone(TimeZone.getDefault());
+        return dateFormat.format(date);
     }
 
     private String peopleString(MyShareSession session) {
